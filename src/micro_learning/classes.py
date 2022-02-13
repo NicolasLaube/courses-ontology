@@ -6,9 +6,7 @@ import owlready2 as owl
 
 from src import config
 
-onto = owl.get_ontology(config.ONTOLOGY_IRI)
-
-with onto:
+with config.ONTOLOGY as onto:
 
     class Thematic(owl.Thing):
         """
@@ -54,33 +52,3 @@ with onto:
         """
 
         ontology = onto
-
-    class Complement(Fragment):
-        """
-        Complement class
-        ---
-        For example 'Extract of Billie Jean to hear' is a complement
-        """
-
-        ontology = onto
-
-    class Example(Fragment):
-        """
-        Example class
-        ---
-        For example 'Extract of Billie Jean to hear' is an example
-        """
-
-        ontology = onto
-
-    class Anecdote(Fragment):
-        """
-        Example class
-        ---
-        For example 'Micheal Jackson sold 66 milion examples of his album Thriller'
-        """
-
-        ontology = onto
-
-
-onto.save(file="cognitio", format="rdfxml")
