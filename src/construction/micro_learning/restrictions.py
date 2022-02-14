@@ -2,7 +2,7 @@
 # import owlready2 as owl
 
 from src import config
-from src.micro_learning.classes import Fragment
+from src.construction.micro_learning.classes import Fragment
 
 with config.ONTOLOGY as onto:
 

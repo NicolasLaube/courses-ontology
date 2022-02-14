@@ -17,7 +17,7 @@ with config.ONTOLOGY as onto:
 
         ontology = onto
 
-    class Course(Thematic):
+    class Course(owl.Thing):
         """
         Courses class
         ---
@@ -26,7 +26,7 @@ with config.ONTOLOGY as onto:
 
         ontology = onto
 
-    class Module(Course):
+    class Module(owl.Thing):
         """
         Module class
         ---
@@ -35,7 +35,7 @@ with config.ONTOLOGY as onto:
 
         ontology = onto
 
-    class Knowledge(Module):
+    class Knowledge(owl.Thing):
         """
         Knowledge class
         ---
@@ -44,7 +44,7 @@ with config.ONTOLOGY as onto:
 
         ontology = onto
 
-    class Fragment(Knowledge):
+    class Fragment(owl.Thing):
         """
         Knowledge class
         ---
