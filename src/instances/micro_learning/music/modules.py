@@ -7,7 +7,7 @@ from src.instances.micro_learning.music.courses import pop_music
 # Introduction part
 pop_music_presentation = Module("PopMusicPresentation")
 pop_music_famous_artists = Module("PopMusicFamousArtists")
-pop_music_famous_artists.requires_modules.extend(["pop_music_presentation"])
+pop_music_famous_artists.requires_modules.extend([pop_music_presentation])
 pop_music_festivals = Module("PopMusicFestivals")
 pop_music_festivals.requires_modules.extend([pop_music_famous_artists])
 difficulty_to_study_musical_style = Module("DifficultyToStudyMusicalStyle")
@@ -18,16 +18,16 @@ pop_music_origin = Module("PopMusicOrigin")
 pop_music_origin.requires_modules.extend([pop_music_festivals])
 rock_n_roll_presentation = Module("RockNRollPresentation")
 rock_n_roll_presentation.requires_modules.extend([rock_n_roll_presentation])
-rock_presentation = Module("RockPresentation")
-rock_presentation.requires_modules.extend([rock_n_roll_presentation])
+rock_music_presentation = Module("RockMusicPresentation")
+rock_music_presentation.requires_modules.extend([rock_n_roll_presentation])
 pop_music_sixties = Module("PopMusicSixties")
 pop_music_sixties.requires_modules.extend([rock_n_roll_presentation])
 beatles = Module("Beatles")
 beatles.requires_modules.extend([pop_music_sixties])
 pop_music_seventies = Module("PopMusicSeventies")
 pop_music_seventies.requires_modules.extend([pop_music_sixties])
-bubblegom_pop = Module("BubblegumPop")
-bubblegom_pop.requires_modules.extend([pop_music_seventies])
+bubblegum_pop = Module("BubblegumPop")
+bubblegum_pop.requires_modules.extend([pop_music_seventies])
 baroque_pop = Module("BaroquePop")
 baroque_pop.requires_modules.extend([pop_music_seventies])
 beach_boys = Module("BeachBoys")
@@ -44,7 +44,7 @@ abba = Module("Abba")
 abba.requires_modules.extend([euro_pop])
 pop_music_eighties = Module("PopMusicEighties")
 pop_music_eighties.requires_modules.extend(
-    [bubblegom_pop, baroque_pop, country_pop, euro_pop]
+    [bubblegum_pop, baroque_pop, country_pop, euro_pop]
 )
 synthesizer_in_the_eighties = Module("SynthesizerInTheEighties")
 synthesizer_in_the_eighties.requires_modules.extend([pop_music_eighties])
@@ -152,11 +152,11 @@ pop_music_modules = [
     difficulty_to_study_musical_style,
     pop_music_origin,
     rock_n_roll_presentation,
-    rock_presentation,
+    rock_music_presentation,
     pop_music_sixties,
     beatles,
     pop_music_seventies,
-    bubblegom_pop,
+    bubblegum_pop,
     baroque_pop,
     beach_boys,
     country_pop,
@@ -209,3 +209,326 @@ pop_music_modules = [
 # Relations
 
 pop_music.has_a_module.extend(pop_music_modules)
+
+
+## Rock music course ##
+
+# Introduction part
+# rock_music_presentation is already defined
+rock_music_famous_artists = Module("RockMusicFamousArtists")
+rock_music_famous_artists.requires_modules.extend([rock_music_presentation])
+rock_music_festivals = Module("RockMusicFestivals")
+rock_music_festivals.requires_modules.extend([rock_music_famous_artists])
+# difficulty_to_study_musical_style already defined
+difficulty_to_study_musical_style.requires_modules.extend([rock_music_presentation])
+
+# History of rock music
+rock_music_origin = Module("RockMusicOrigin")
+rock_music_origin.requires_modules.extend([rock_music_festivals])
+# rock_n_roll_presentation already defined
+rock_n_roll_presentation.requires_modules.extend([rock_n_roll_presentation])
+rockabily = Module("Rockabily")
+rockabily.requires_modules.extend([rock_n_roll_presentation])
+elvis_presley = Module("ElvisPresley")
+elvis_presley.requires_modules.extend(rockabily)
+chuck_berry = Module("ChuckBerry")
+chuck_berry.requires_modules.extend(rockabily)
+doo_wop = Module("DooWop")
+doo_wop.requires_modules.extend([rock_n_roll_presentation])
+# pop_music_presentation already defined
+pop_music_presentation.requires_modules.extend([rockabily, doo_wop])
+rock_music_sixties = Module("RockMusicSixties")
+rock_music_sixties.requires_modules.extend([pop_music_presentation])
+rolling_stones = Module("RollingStones")
+rolling_stones.requires_modules.extend([rock_music_sixties])
+mod_subculture = Module("ModSubculture")
+mod_subculture.requires_modules.extend([rolling_stones])
+the_who = Module("TheWho")
+the_who.requires_modules.extend([mod_subculture])
+blues_rock = Module("BluesRock")
+blues_rock.requires_modules.extend([rolling_stones])
+the_animals = Module("TheAnimals")
+the_animals.requires_modules.extend([blues_rock])
+folk_music = Module("FolkMusic")
+folk_music.requires_modules.extend([mod_subculture, blues_rock])
+bob_dylan = Module("BobDylan")
+bob_dylan.requires_modules.extend([folk_music])
+psychedelia = Module("Psychedelia")
+psychedelia.requires_modules.extend([mod_subculture, blues_rock])
+pink_floyd = Module("PinkFloyd")
+pink_floyd.requires_modules.extend([psychedelia])
+the_doors = Module("TheDoors")
+the_doors.requires_modules.extend([psychedelia])
+progressive_rock = Module("ProgressiveRock")
+progressive_rock.requires_modules.extend([psychedelia])
+king_crimson = Module("KingCrimson")
+king_crimson.requires_modules.extend([progressive_rock])
+genesis = Module("Genesis")
+genesis.requires_modules.extend([progressive_rock])
+jimi_hendrix = Module("JimiHendrix")
+jimi_hendrix.requires_modules.extend([progressive_rock])
+garage_rock = Module("GarageRock")
+garage_rock.requires_modules.extend([mod_subculture, blues_rock])
+jazz_fusion = Module("JazzFusion")
+jazz_fusion.requires_modules.extend([mod_subculture, blues_rock])
+rock_music_seventies = Module("RockMusicSeventies")
+rock_music_seventies.requires_modules.extend([rock_music_sixties])
+soft_rock = Module("SoftRock")
+soft_rock.requires_modules.extend([rock_music_seventies])
+elton_john = Module("EltonJohn")
+elton_john.requires_modules.extend([soft_rock])
+hard_rock = Module("HardRock")
+hard_rock.requires_modules.extend([rock_music_seventies])
+led_zeppelin = Module("LedZeppelin")
+led_zeppelin.requires_modules.extend([hard_rock])
+deep_purple = Module("DeepPurple")
+deep_purple.requires_modules.extend([hard_rock])
+black_sabbath = Module("BlackSabbath")
+black_sabbath.requires_modules.extend([hard_rock])
+acdc = Module("ACDC")
+acdc.requires_modules.extend([hard_rock])
+glam_rock = Module("GlamRock")
+glam_rock.requires_modules.extend([rock_music_seventies])
+david_bowie = Module("DavidBowie")
+david_bowie.requires_modules.extend([glam_rock])
+queen = Module("Queen")
+queen.requires_modules.extend([glam_rock])
+punk_rock = Module("PunkRock")
+punk_rock.requires_modules.extend([rock_music_seventies])
+sex_pistols = Module("SexPistols")
+sex_pistols.requires_modules.extend([punk_rock])
+rock_music_eighties = Module("RockMusicEighties")
+rock_music_eighties.requires_modules.extend(
+    [soft_rock, hard_rock, glam_rock, punk_rock]
+)
+heavy_metal = Module("HeavyMetal")
+heavy_metal.requires_modules.extend([rock_music_eighties])
+iron_maiden = Module("IronMaiden")
+iron_maiden.requires_modules.extend([heavy_metal])
+motorhead = Module("Motorhead")
+motorhead.requires_modules.extend([heavy_metal])
+metallica = Module("Metallica")
+metallica.requires_modules.extend([heavy_metal])
+indie_rock = Module("IndieRock")
+indie_rock.requires_modules.extend([rock_music_eighties])
+pixies = Module("Pixies")
+pixies.requires_modules.extend([indie_rock])
+glam_metal = Module("GlamMetal")
+glam_metal.requires_modules.extend([heavy_metal])
+kiss = Module("Kiss")
+kiss.requires_modules.extend([glam_metal])
+new_wave_music = Module("NewWaveMusic")
+new_wave_music.requires_modules.extend([rock_music_eighties])
+the_cure = Module("TheCure")
+the_cure.requires_modules.extend([new_wave_music])
+the_police = Module("ThePolice")
+the_police.requires_modules.extend([new_wave_music])
+rock_music_nineties = Module("RockMusicNineties")
+rock_music_nineties.requires_modules.extend([glam_metal, indie_rock, new_wave_music])
+alternative_rock = Module("AlternativeRock")
+alternative_rock.requires_modules.extend([rock_music_nineties])
+red_hot_chili_peppers = Module("RedHotChiliPeppers")
+red_hot_chili_peppers.requires_modules.extend([alternative_rock])
+muse = Module("Muse")
+muse.requires_modules.extend([alternative_rock])
+radiohead = Module("Radiohead")
+radiohead.requires_modules.extend([alternative_rock])
+# brit_pop already defined
+brit_pop.requires_modules.extend([alternative_rock])
+# oasis already defined
+# oasis.requires_modules.extend([brit_pop])
+grunge = Module("Grunge")
+grunge.requires_modules.extend([alternative_rock])
+nirvana = Module("Nirvana")
+nirvana.requires_modules.extend([grunge])
+rock_fusion_90s = Module("RockFusion90s")
+rock_fusion_90s.requires_modules.extend([rock_music_nineties])
+rage_against_the_machine = Module("RageAgainstTheMachine")
+rage_against_the_machine.requires_modules.extend([rock_fusion_90s])
+system_of_a_down = Module("SystemOfADown")
+system_of_a_down.requires_modules.extend([rock_fusion_90s])
+rock_music_2000 = Module("RockMusic2000")
+rock_music_2000.requires_modules.extend(
+    [alternative_rock, brit_pop, grunge, rock_fusion_90s]
+)
+neo_garage_rock = Module("NeoGarageRock")
+neo_garage_rock.requires_modules.extend([rock_music_2000])
+arctic_monkeys = Module("ArcticMonkeys")
+arctic_monkeys.requires_modules.extend([neo_garage_rock])
+emocore = Module("Emocore")
+emocore.requires_modules.extend([rock_music_2000])
+dance_punk = Module("DancePunk")
+dance_punk.requires_modules.extend([rock_music_2000])
+contemporary_rock = Module("ContemporaryRock")
+contemporary_rock.requires_modules.extend([neo_garage_rock, emocore, dance_punk])
+
+# Rock music analysis
+rock_music_structure = Module("RockMusicStructure")
+rock_music_structure.requires_modules.extend([contemporary_rock])
+rock_music_song_themes = Module("RockMusicSongThemes")
+rock_music_song_themes.requires_modules.extend([rock_music_structure])
+rock_music_rhythms = Module("RockMusicRhythms")
+rock_music_rhythms.requires_modules.extend([rock_music_structure])
+rock_music_harmonics = Module("RockMusicChords")
+rock_music_harmonics.requires_modules.extend([rock_music_structure])
+rock_music_band_structure = Module("RockMusicBandStructure")
+rock_music_band_structure.requires_modules.extend([rock_music_structure])
+rock_music_singing = Module("RockMusicSinging")
+rock_music_singing.requires_modules.extend([rock_music_band_structure])
+rock_music_accompaniment = Module("RockMusicAccompaniment")
+rock_music_accompaniment.requires_modules.extend([rock_music_band_structure])
+rock_music_bass = Module("RockMusicBass")
+rock_music_bass.requires_modules.extend([rock_music_band_structure])
+rock_music_percussions = Module("RockMusicPercussions")
+rock_music_percussions.requires_modules.extend([rock_music_band_structure])
+rock_music_effects = Module("RockMusicEffects")
+rock_music_effects.requires_modules.extend([rock_music_band_structure])
+rock_music_composition = Module("RockMusicComposition")
+rock_music_composition.requires_modules.extend(
+    [
+        rock_music_song_themes,
+        rock_music_rhythms,
+        rock_music_harmonics,
+        rock_music_singing,
+        rock_music_accompaniment,
+        rock_music_bass,
+        rock_music_percussions,
+        rock_music_effects,
+    ]
+)
+rock_music_recording = Module("RockMusicRecording")
+rock_music_recording.requires_modules.extend([rock_music_composition])
+
+# Environment of rock music
+rock_social_background = Module("RockSocialBackground")
+rock_social_background.requires_modules.extend([rock_music_recording])
+rock_spirit = Module("RockSpirit")
+rock_spirit.requires_modules.extend([rock_social_background])
+counterculture_movement = Module("CountercultureMovement")
+counterculture_movement.requires_modules.extend([rock_spirit])
+rock_music_production = Module("RockMusicProduction")
+rock_music_production.requires_modules.extend([counterculture_movement])
+counterculture_in_the_sixties = Module("CounterCultureInTheSixties")
+counterculture_in_the_sixties.requires_modules.extend([counterculture_movement])
+woodstock_festival = Module("WoodstockFestival")
+woodstock_festival.requires_modules.extend([counterculture_in_the_sixties])
+rock_political_activism = Module("RockPoliticalActivism")
+rock_political_activism.requires_modules.extend([counterculture_movement])
+live_aid = Module("LiveAid")
+live_aid.requires_modules.extend([rock_political_activism])
+rock_music_and_the_press = Module("RockMusicAndThePress")
+rock_music_and_the_press.requires_modules.extend(
+    [rock_music_production, counterculture_in_the_sixties, rock_political_activism]
+)
+rock_music_shows = Module("RockMusicShows")
+rock_music_shows.requires_modules.extend([rock_spirit])
+rock_music_and_sex = Module("RockMusicAndSex")
+rock_music_and_sex.requires_modules.extend([rock_music_shows])
+rock_music_and_drugs = Module("RockMusicAndDrugs")
+rock_music_and_drugs.requires_modules.extend([rock_music_shows])
+rock_music_bands_and_their_fans = Module("RockMusicBandsAndTheirFans")
+rock_music_bands_and_their_fans.requires_modules.extend([rock_music_shows])
+fanzines = Module("Fanzines")
+fanzines.requires_modules.extend([rock_music_bands_and_their_fans])
+women_in_rock_music = Module("WomenInRockMusic")
+women_in_rock_music.requires_modules.extend([rock_spirit])
+
+rock_music_modules = [
+    rock_music_famous_artists,
+    rock_music_festivals,
+    difficulty_to_study_musical_style,
+    rock_music_origin,
+    rock_n_roll_presentation,
+    rockabily,
+    elvis_presley,
+    chuck_berry,
+    doo_wop,
+    pop_music_presentation,
+    rock_music_sixties,
+    rolling_stones,
+    mod_subculture,
+    the_who,
+    blues_rock,
+    the_animals,
+    folk_music,
+    bob_dylan,
+    psychedelia,
+    pink_floyd,
+    the_doors,
+    progressive_rock,
+    king_crimson,
+    genesis,
+    jimi_hendrix,
+    garage_rock,
+    jazz_fusion,
+    rock_music_seventies,
+    soft_rock,
+    elton_john,
+    hard_rock,
+    led_zeppelin,
+    deep_purple,
+    black_sabbath,
+    acdc,
+    glam_rock,
+    david_bowie,
+    queen,
+    punk_rock,
+    sex_pistols,
+    rock_music_eighties,
+    heavy_metal,
+    iron_maiden,
+    motorhead,
+    metallica,
+    indie_rock,
+    pixies,
+    glam_metal,
+    kiss,
+    new_wave_music,
+    the_cure,
+    the_police,
+    rock_music_nineties,
+    alternative_rock,
+    red_hot_chili_peppers,
+    muse,
+    radiohead,
+    brit_pop,
+    oasis,
+    grunge,
+    nirvana,
+    rock_fusion_90s,
+    rage_against_the_machine,
+    system_of_a_down,
+    rock_music_2000,
+    neo_garage_rock,
+    arctic_monkeys,
+    emocore,
+    dance_punk,
+    contemporary_rock,
+    rock_music_structure,
+    rock_music_song_themes,
+    rock_music_rhythms,
+    rock_music_harmonics,
+    rock_music_band_structure,
+    rock_music_singing,
+    rock_music_accompaniment,
+    rock_music_bass,
+    rock_music_percussions,
+    rock_music_effects,
+    rock_music_composition,
+    rock_music_recording,
+    rock_social_background,
+    rock_spirit,
+    counterculture_movement,
+    rock_music_production,
+    counterculture_in_the_sixties,
+    woodstock_festival,
+    rock_political_activism,
+    live_aid,
+    rock_music_and_the_press,
+    rock_music_shows,
+    rock_music_and_sex,
+    rock_music_and_drugs,
+    rock_music_bands_and_their_fans,
+    fanzines,
+    women_in_rock_music,
+]
