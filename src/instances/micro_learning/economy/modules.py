@@ -23,16 +23,16 @@ central_bank = Module("CentralBank")
 monetary_policy = Module("MonetaryPolicy")
 budget_policy = Module("BudgetPolicy")
 
-budget_policy.requires_modules.append(supply_and_demand)
-monetary_policy.requires_modules.append(supply_and_demand)
-central_bank.requires_modules.extend([governement_spending, investment, consumption])
+budget_policy.requires_module.append(supply_and_demand)
+monetary_policy.requires_module.append(supply_and_demand)
+central_bank.requires_module.extend([governement_spending, investment, consumption])
 
 exports_and_imports = Module("ExportsAndImports")
 exchange_markets = Module("ExchangeMarket")
-exports_and_imports.requires_modules.extend(
+exports_and_imports.requires_module.extend(
     [central_bank, monetary_policy, budget_policy]
 )
-exchange_markets.requires_modules.extend([central_bank, monetary_policy, budget_policy])
+exchange_markets.requires_module.extend([central_bank, monetary_policy, budget_policy])
 
 macroeconomy_modules = [
     unemployement,
@@ -48,6 +48,6 @@ macroeconomy_modules = [
 
 # Relations
 
-macroeconomy.has_a_module.extend(macroeconomy_modules)
+macroeconomy.has_as_module.extend(macroeconomy_modules)
 
-money_market.requires_modules.extend([unemployement, gdp, inflation, economic_cycles])
+money_market.requires_module.extend([unemployement, gdp, inflation, economic_cycles])

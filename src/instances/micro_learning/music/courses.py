@@ -8,4 +8,4 @@ rock_music = Course("RockMusic")
 
 music_courses = [pop_music, classical_music, rock_music]
 
-music.has_a_course.extend(music_courses)
+music.has_as_course.extend(music_courses)
