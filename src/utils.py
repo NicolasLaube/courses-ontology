@@ -2,7 +2,7 @@
 import os
 from pprint import pprint
 
-from owlready2 import get_ontology
+from owlready2 import get_ontology  # type: ignore
 
 from src import config
 

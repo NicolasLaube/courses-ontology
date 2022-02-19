@@ -1,8 +1,8 @@
 """Restrictions"""
-import owlready2 as owl
+import owlready2 as owl  # type: ignore
 
 from src import config
-from src.construction.micro_learning.classes import Complement, Example, Anecdote
+from src.construction.micro_learning.classes import Anecdote, Complement, Example
 
 with config.ONTOLOGY as onto:
     owl.AllDisjoint([Complement, Example, Anecdote])

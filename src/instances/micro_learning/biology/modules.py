@@ -2,7 +2,7 @@
 from src.construction.micro_learning.classes import Module
 from src.instances.micro_learning.biology.courses import microbiota
 
-## Microbiota course ##
+# Microbiota course
 
 # Introduction part
 microbiota_presentation = Module("MicrobiotaPresentation")

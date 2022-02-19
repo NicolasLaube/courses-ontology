@@ -2,7 +2,7 @@
 from src.construction.micro_learning.classes import Module
 from src.instances.micro_learning.music.courses import pop_music
 
-## Pop music course ##
+# Pop music course
 
 # Introduction part
 pop_music_presentation = Module("PopMusicPresentation")
@@ -211,7 +211,7 @@ pop_music_modules = [
 pop_music.has_as_module.extend(pop_music_modules)
 
 
-## Rock music course ##
+# Rock music course
 
 # Introduction part
 # rock_music_presentation is already defined

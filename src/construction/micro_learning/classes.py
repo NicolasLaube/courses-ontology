@@ -2,7 +2,7 @@
 Base ontologies
 Classes in ontologies are abstract groups, sets or collections of objects.
 """
-import owlready2 as owl
+import owlready2 as owl  # type: ignore
 
 from src import config
 

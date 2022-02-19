@@ -1,7 +1,7 @@
 """
 Micro learning courses properties
 """
-import owlready2 as owl
+import owlready2 as owl  # type: ignore
 
 from src import config
 from src.construction.micro_learning.classes import Course, Knowledge, Module, Thematic

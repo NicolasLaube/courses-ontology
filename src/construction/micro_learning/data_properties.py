@@ -1,5 +1,5 @@
 """Data properties"""
-import owlready2 as owl
+import owlready2 as owl  # type: ignore
 
 from src import config
 

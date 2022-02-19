@@ -1,7 +1,7 @@
 """Config"""
 import os
 
-from owlready2 import get_ontology
+from owlready2 import get_ontology  # type: ignore
 
 # It is better to import owlready2 with from owlready2 import * because
 # Owlready redefines some python functions such as issubclass()
