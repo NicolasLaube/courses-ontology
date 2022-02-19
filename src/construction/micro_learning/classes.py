@@ -46,9 +46,36 @@ with config.ONTOLOGY as onto:
 
     class Fragment(owl.Thing):
         """
-        Knowledge class
+        Fragment class
         ---
-        A fragment is a Complement, Example or Anecdot
+        A fragment is a Complement, Example or Anecdote
+        """
+
+        ontology = onto
+
+    class Complement(Fragment):
+        """
+        Complement class
+        ---
+        A Complement complete information given in a knowledge
+        """
+
+        ontology = onto
+
+    class Example(Fragment):
+        """
+        Example class
+        ---
+        An Exemple gives an example about a knowledge
+        """
+
+        ontology = onto
+
+    class Anecdote(Fragment):
+        """
+        Anecdote class
+        ---
+        An Anecdote gives an anecdote about a knowledge
         """
 
         ontology = onto

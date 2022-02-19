@@ -104,6 +104,6 @@ macroeconomy_modules = [
 
 # Relations
 
-macroeconomy.has_a_module.extend(macroeconomy_modules)
+macroeconomy.has_as_module.extend(macroeconomy_modules)
 
-money_market.requires_modules.extend([unemployement, gdp, inflation, economic_cycles])
+money_market.requires_module.extend([unemployement, gdp, inflation, economic_cycles])
