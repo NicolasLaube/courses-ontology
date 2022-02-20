@@ -30,7 +30,7 @@ def show_informations(ontology):
     """Shows a few information on the ontology"""
     print(f"Base IRI: {ontology.base_iri}")
     print(f"Imported ontologies: {ontology.imported_ontologies}")
-    print("Onotology classes: ")
+    print("Ontology classes: ")
     pprint(list(ontology.classes()))
 
 
