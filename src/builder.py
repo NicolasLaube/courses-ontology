@@ -22,7 +22,7 @@ def load_ontology():
     """Loads an ontology from local path or web url"""
     onto_path.append(ONTOLOGY_PATH)
     onto = get_ontology(ONTOLOGY_URL)
-    onto.load(relaod=True)
+    onto.load()
     return onto
     # forces reloading of ontology (cache deletion)
 
@@ -72,7 +72,7 @@ def time_unparser(time_obj: Time) -> str:
 
 # The datatype must be declared BEFORE loading any ontology that uses it.
 declare_datatype(
-    Time, "http://www.w3.org/2001/XMLSchema#time", time_parser, time_unparser
+    Time, "https://www.w3.org/2001/XMLSchema#time", time_parser, time_unparser
 )
 
 default_world.set_backend(filename=SQLITE3_PATH)
