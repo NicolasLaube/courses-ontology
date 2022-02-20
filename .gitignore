@@ -8,3 +8,5 @@ venv
 .env
 .env.local
 storage/
+capsule.owl
+output.txt
