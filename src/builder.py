@@ -6,8 +6,7 @@ from owlready2 import default_world, get_ontology, onto_path  # type: ignore
 
 # It is better to import owlready2 with from owlready2 import * because
 # Owlready redefines some python functions such as issubclass()
-ONTOLOGY_URL = "http://capsule.com/ontology.owl"
-ONTOLOGY_PATH = os.path.abspath(os.path.join("storage", "capsule.owl"))
+ONTOLOGY_PATH = os.path.join("storage", "capsule.owl")
 ONTOLOGY_IRI = ("file://" + ONTOLOGY_PATH).replace("\\", "/")
 SQLITE3_PATH = os.path.abspath(os.path.join("storage", "capsule.sqlite3"))
 
@@ -15,7 +14,7 @@ SQLITE3_PATH = os.path.abspath(os.path.join("storage", "capsule.sqlite3"))
 def load_ontology():
     """Loads an ontology from local path or web url"""
     onto_path.append(ONTOLOGY_PATH)
-    onto = get_ontology(ONTOLOGY_URL)
+    onto = get_ontology(ONTOLOGY_IRI)
     onto.load()
     return onto
     # forces reloading of ontology (cache deletion)
@@ -36,7 +35,8 @@ def show_informations(ontology):
 
 
 default_world.set_backend(filename=SQLITE3_PATH)
-if os.path.exists(ONTOLOGY_IRI):
+if os.path.exists(ONTOLOGY_PATH):
+    print("Ok")
     ONTOLOGY = load_ontology()
 else:
     ONTOLOGY = get_ontology(ONTOLOGY_IRI)
