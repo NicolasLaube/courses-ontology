@@ -30,7 +30,7 @@ def save_ontology(onto, save_path: str = ONTOLOGY_PATH):
 def show_informations(ontology):
     """Shows a few information on the ontology"""
     print(f"Base IRI: {ontology.base_iri}")
-    print(f"Imported onotologies: {ontology.imported_ontologies}")
+    print(f"Imported ontologies: {ontology.imported_ontologies}")
     print("Onotology classes: ")
     pprint(list(ontology.classes()))
 
