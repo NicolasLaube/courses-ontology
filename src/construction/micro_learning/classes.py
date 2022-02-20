@@ -4,9 +4,9 @@ Classes in ontologies are abstract groups, sets or collections of objects.
 """
 import owlready2 as owl  # type: ignore
 
-from src import config
+from src.builder import ONTOLOGY
 
-with config.ONTOLOGY as onto:
+with ONTOLOGY:
 
     class Thematic(owl.Thing):
         """
@@ -15,7 +15,9 @@ with config.ONTOLOGY as onto:
         For exemple 'Music' is a thematic
         """
 
-        ontology = onto
+    # The creation of this class adds two RDF triplets
+    # The first one indicates that Thematic is a OWL class
+    # The second one indicates Thematic herits from Thing
 
     class Course(owl.Thing):
         """
@@ -24,16 +26,12 @@ with config.ONTOLOGY as onto:
         For example 'The pop' is a course
         """
 
-        ontology = onto
-
     class Module(owl.Thing):
         """
         Module class
         ---
         For example 'The pop in the 80s' is a module
         """
-
-        ontology = onto
 
     class Knowledge(owl.Thing):
         """
@@ -42,16 +40,12 @@ with config.ONTOLOGY as onto:
         For example 'Micheal Jackson was king of the pop' is a knwoledge
         """
 
-        ontology = onto
-
     class Fragment(owl.Thing):
         """
         Fragment class
         ---
         A fragment is a Complement, Example or Anecdote
         """
-
-        ontology = onto
 
     class Complement(Fragment):
         """
@@ -60,8 +54,6 @@ with config.ONTOLOGY as onto:
         A Complement complete information given in a knowledge
         """
 
-        ontology = onto
-
     class Example(Fragment):
         """
         Example class
@@ -69,13 +61,9 @@ with config.ONTOLOGY as onto:
         An Exemple gives an example about a knowledge
         """
 
-        ontology = onto
-
     class Anecdote(Fragment):
         """
         Anecdote class
         ---
         An Anecdote gives an anecdote about a knowledge
         """
-
-        ontology = onto

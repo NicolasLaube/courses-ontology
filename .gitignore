@@ -7,3 +7,7 @@ venv
 .vscode
 .env
 .env.local
+storage/*
+!storage/.gitkeep
+capsule.owl
+output.txt

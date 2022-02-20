@@ -1,6 +1,6 @@
 """Main file"""
-from src import config
+from src.builder import ONTOLOGY, ONTOLOGY_PATH, save_ontology
 
-with config.ONTOLOGY as onto:
+# ONTOLOGY.save(file=ONTOLOGY_IRI, format="ntriples")
 
-    onto.save(file="cognitio", format="rdfxml")
+save_ontology(ONTOLOGY, ONTOLOGY_PATH)
