@@ -1,9 +1,7 @@
 """Data properties"""
-import datetime
-
 from owlready2 import DataProperty  # type: ignore
 
-from src.builder import ONTOLOGY
+from src.builder import ONTOLOGY, Time
 
 with ONTOLOGY:
 
@@ -25,4 +23,4 @@ with ONTOLOGY:
     class lasts(DataProperty):
         """Duration"""
 
-        range = [datetime.time]
+        range = [Time]
