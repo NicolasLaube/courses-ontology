@@ -1,24 +1,28 @@
 """Data properties"""
-import owlready2 as owl  # type: ignore
+import datetime
 
-from src import config
+from owlready2 import DataProperty  # type: ignore
 
-with config.ONTOLOGY as onto:
+from src.builder import ONTOLOGY
 
-    class is_title(owl.DataProperty):
+with ONTOLOGY:
+
+    class is_title(DataProperty):
         """Title"""
 
-        ontology = onto
         range = [str]
 
-    class is_description(owl.DataProperty):
+    class is_description(DataProperty):
         """Description"""
 
-        ontology = onto
         range = [str]
 
-    class is_content(owl.DataProperty):
+    class is_content(DataProperty):
         """Content"""
 
-        ontology = onto
         range = [str]
+
+    class lasts(DataProperty):
+        """Duration"""
+
+        range = [datetime.time]
