@@ -1,13 +1,11 @@
 """Requests on persons"""
 # pylint: disable=C0209
-# from pprint import pprint
-# from typing import List
+from typing import List
 
 from owlready2 import default_world
 
 from src.builder import ONTOLOGY
-
-# from src.construction import Course, Learner
+from src.construction import Course, Learner
 
 with ONTOLOGY:
 
@@ -18,25 +16,42 @@ with ONTOLOGY:
     # @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
     # @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-    # def get_course_finishers(course: Course) -> List[str]:
-    #     """Who finished Course X?"""
+    def get_course_finishers(course: Course) -> List[str]:
+        """Who finished Course X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns1:Person .
+                    ?b ns1:finished <%s> .
+                }"""
+                % course.iri
+            )
+        )
 
-    # def get_course_creator(course: Course) -> List[str]:
-    #     """Who created Course X?"""
-    #     # return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Course . }"))
+    def get_course_creators(course: Course) -> List[str]:
+        """Who created Course X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns1:Person .
+                    ?b ns1:created_module <%s> .
+                }"""
+                % course.iri
+            )
+        )
 
-    # def get_learner_knowledge(learner: Learner) -> List[str]:
-    #     """What is the knowledge of learner X?"""
-    #     # return list(
-    #     #     GRAPH.query_owlready(
-    #     #         """SELECT ?b WHERE {
-    #     #             ?b a ns1:Thematic .
-    #     #             <%s> ns1:is_in_thematic ?b .
-    #     #         }
-    #     #         """
-    #     #         % learner.iri
-    #     #     )
-    #     # )
+    def get_learner_knowledge(learner: Learner) -> List[str]:
+        """What is the knowledge of learner X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns1:Knowledge .
+                    <%s> ns1:acquired_knowledge ?b .
+                }
+                """
+                % learner.iri
+            )
+        )
 
     # def get_learner_accessible_courses(learner: Learner):
     #     """Get all modules of the course"""
@@ -51,19 +66,18 @@ with ONTOLOGY:
     #     #     )
     #     # )
 
-    # def get_courses_to_revise(learner: Learner):
-    #     """What are the Courses that Learner Y should revise?"""
-    #     # return list(
-    #     #     GRAPH.query_owlready(
-    #     #         """SELECT ?b WHERE {
-    #     #             ?b a ns1:Knowledge .
-    #     #             ?m ns1:contains_knowledge ?b .
-    #     #             <%s> ns1:has_as_module ?b .
-    #     #         }
-    #     #         """
-    #     #         % course.iri
-    #     #     )
-    #     # )
+    def get_modules_to_revise():
+        """What are the Courses that Learner Y should revise?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns1:Knowledge .
+                    ?m ns1:contains_knowledge ?b .
+                     ns1:has_as_module ?b .
+                }
+                """
+            )
+        )
 
     # def get_learner_position(learner: Learner, course: Course):
     #     """Where is the learner X in Course Y?"""
