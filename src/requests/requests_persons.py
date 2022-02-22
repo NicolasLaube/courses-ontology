@@ -1,11 +1,11 @@
 """Requests on persons"""
-# pylint: disable=C0209
+# pylint: disable=C0209, E0401
 from typing import List
 
 from owlready2 import default_world
 
 from src.builder import ONTOLOGY
-from src.construction import Course, Learner
+from src.construction import Course, Learner, Module
 
 with ONTOLOGY:
 
@@ -15,6 +15,36 @@ with ONTOLOGY:
     # @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
     # @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
     # @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+    def get_unlocked_modules(module: Module, learner: Learner):
+        """What modules are unlocked by user Y when finishing module X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns2:Module .
+                    ?b ns2:requires_module <%s> .
+
+                    OPTIONAL {
+                        ?b ns2:requires_module ?m1 .
+                        <%s> ns1:finished ?m1 .
+                        FILTER (?m1 != <%s>) .
+                    }
+                    OPTIONAL {
+                        <%s> ns1:finished ?m2 .
+                        FILTER (?m1 = ?m2) .
+                    }
+                    FILTER(!bound(?m1)) .
+                    FILTER(!bound(?m2)) .
+                }
+                """
+                % (
+                    module.iri,
+                    learner.iri,
+                    module.iri,
+                    learner.iri,
+                )
+            )
+        )
 
     def get_course_finishers(course: Course) -> List[str]:
         """Who finished Course X?"""

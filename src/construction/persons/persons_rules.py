@@ -12,6 +12,18 @@ with ONTOLOGY:
                         has_as_module(?c, ?m), Module(?m) -> finished(?p, ?m)"""
     )
 
+    # if a person finished a module he started it
+    imp.set_as_rule(
+        """Person(?p), Module(?m), finished(?p, ?m),
+                        -> started(?p, ?m)"""
+    )
+
+    # if a person started a module he started the course
+    imp.set_as_rule(
+        """Person(?p), Module(?m), started(?p, ?m), Course(?c),
+                        has_as_module(?c, ?m) -> started(?p, ?c)"""
+    )
+
     # A person who started a module is a learner
     imp.set_as_rule(
         """Person(?p), Module(?m), started(?p, ?m)
@@ -46,4 +58,10 @@ with ONTOLOGY:
     imp.set_as_rule(
         """Person(?p1), Person(?p2), reviewed(?p1, ?p2)
                           -> Reviewer(?p2)"""
+    )
+
+    # A person who finished a course didn't fail it
+    imp.set_as_rule(
+        """Person(?p), Course(?c), finished(?p, ?c)
+                          -> not(failed(?p, ?c))"""
     )

@@ -10,8 +10,8 @@ from src.requests.requests_micro_learning import (
     get_course_thematics,
     get_module_knowledge,
     get_prerequisites,
-    get_unlocked_modules,
 )
+from src.requests.requests_persons import get_unlocked_modules
 
 with ONTOLOGY:
 
@@ -27,8 +27,7 @@ with ONTOLOGY:
     pprint(get_course_knowledge(ONTOLOGY.PopMusic))
     print("\nKnowledge of module Beatles: ")
     pprint(get_module_knowledge(ONTOLOGY.Beatles))
-    print("\nPrerequisites of modules Beatles: ")
-    pprint(get_prerequisites(ONTOLOGY.Beatles))
-    print("\nUnlocked modules of Beatles: ")
-    print(ONTOLOGY.Antoine)
-    pprint(get_unlocked_modules(ONTOLOGY.PopMusicFamousArtists, ONTOLOGY.Nicolas))
+    print("\nPrerequisites of modules PopMusicFamousArtists: ")
+    pprint(get_prerequisites(ONTOLOGY.PopMusicFamousArtists))
+    print("\nMathilde's unlocked modules of PopMusicFamousArtists: ")
+    pprint(get_unlocked_modules(ONTOLOGY.PopMusicFamousArtists, ONTOLOGY.Mathilde))

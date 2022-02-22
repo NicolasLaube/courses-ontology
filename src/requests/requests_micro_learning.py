@@ -5,7 +5,7 @@ from typing import List
 from owlready2 import default_world
 
 from src.builder import ONTOLOGY
-from src.construction import Course, Learner, Module
+from src.construction import Course, Module
 
 with ONTOLOGY:
 
@@ -88,36 +88,6 @@ with ONTOLOGY:
                 }
                 """
                 % module.iri
-            )
-        )
-
-    def get_unlocked_modules(module: Module, learner: Learner):
-        """What modules are unlocked by user Y when finishing module X?"""
-        return list(
-            GRAPH.query_owlready(
-                """SELECT ?b WHERE {
-                    ?b a ns2:Module .
-                    ?b ns2:requires_module <%s> .
-
-                    OPTIONAL {
-                        ?b ns2:requires_module ?m1 .
-                        <%s> ns1:finished ?m1 .
-                        FILTER (?m1 != <%s>) .
-                    }
-                    OPTIONAL {
-                        <%s> ns1:finished ?m2 .
-                        FILTER (?m1 = ?m2) .
-                    }
-                    FILTER(!bound(?m1)) .
-                    FILTER(!bound(?m2)) .
-                }
-                """
-                % (
-                    module.iri,
-                    learner.iri,
-                    module.iri,
-                    learner.iri,
-                )
             )
         )
 
