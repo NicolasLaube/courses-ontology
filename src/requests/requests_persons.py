@@ -34,7 +34,7 @@ with ONTOLOGY:
             GRAPH.query_owlready(
                 """SELECT ?b WHERE {
                     ?b a ns1:Person .
-                    ?b ns1:created_module <%s> .
+                    ?b ns1:created <%s> .
                 }"""
                 % course.iri
             )
@@ -46,7 +46,8 @@ with ONTOLOGY:
             GRAPH.query_owlready(
                 """SELECT ?b WHERE {
                     ?b a ns1:Knowledge .
-                    <%s> ns1:acquired_knowledge ?b .
+                    ?b ns1:is_in_module ?m .
+                    <%s> ns1:finished ?m .
                 }
                 """
                 % learner.iri
@@ -66,30 +67,64 @@ with ONTOLOGY:
     #     #     )
     #     # )
 
-    def get_modules_to_revise():
-        """What are the Courses that Learner Y should revise?"""
+    def get_modules_to_revise(learner: Learner):
+        """What are the Modules that Learner Y should revise?"""
         return list(
             GRAPH.query_owlready(
                 """SELECT ?b WHERE {
-                    ?b a ns1:Knowledge .
-                    ?m ns1:contains_knowledge ?b .
-                     ns1:has_as_module ?b .
+                    ?b a ns1:Module .
+                    <%s> ns1:started ?b .
+                    FILTER NOT EXIST {<%s> ns1:finished ?b}
                 }
                 """
+                % (learner.iri, learner.iri)
             )
         )
 
     # def get_learner_position(learner: Learner, course: Course):
     #     """Where is the learner X in Course Y?"""
 
-    # def get_unlocked_modules(learner: Learner, course: Course):
-    #     """What Modules were ?"""
+    # def get_accessible_modules(learner: Learner):
+    #     """What Modules are accessible to learner?"""
+    #     return list(
+    #         GRAPH.query_owlready(
+    #             """SELECT ?b WHERE {
+    #                 ?b a ns1:Module .
+    #                 FILTER NOT EXIST {
+    #                     ?b requires_module ?m .
+    #                     ! (?m ns1:was_finished_by <%s>) .
+    #                 }
+    #             } LIMIT 50
+    #             """
+    #         )
+    #     )
 
-    # def get_number_starters(course: Course):
-    #     """How many persons started the course X?"""
+    def get_number_starters(course: Course):
+        """How many persons started the course X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT COUNT(?b) WHERE {
+                    ?b a ns1:Person .
+                    ?b ns1:started ?m .
+                    <%s> ns1:has_as_module ?m .
+                }
+                """
+                % course.iri,
+            )
+        )
 
-    # def get_number_finishers(course: Course):
-    #     """How many persons finished the course X?"""
+    def get_number_finishers(course: Course):
+        """How many persons finished the course X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT COUNT(?p) WHERE {
+                    ?p a ns1:Person .
+                    ?p ns1:finished <%s> .
+                }
+                """
+                % course.iri
+            )
+        )
 
     # def get_seen_fragments(learner: Learner):
     #     """Get modules unlocked when a module is finished"""

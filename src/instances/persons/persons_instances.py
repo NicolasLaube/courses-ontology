@@ -12,7 +12,7 @@ with ONTOLOGY:
     paola = Person("Paola")
     mathilde = Person("Mathilde")
     lucy = Person("Lucy")
-    lea = Person("lea")
+    lea = Person("Lea")
     beatrice = Person("Beatrice")
 
     theo = Person("Theo")
