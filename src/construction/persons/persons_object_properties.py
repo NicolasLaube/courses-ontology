@@ -56,6 +56,11 @@ with ONTOLOGY:
     class failed(Person >> Module):  # type: ignore
         """Person X failed module Y"""
 
+    class was_failed_by(Module >> Person):  # type: ignore
+        """Module X was failed by person Y"""
+
+        inverse_property = failed
+
     class follows(Person >> Person):  # type: ignore
         """Person X follows Person Y"""
 
