@@ -13,3 +13,6 @@ lint:
 test:
 	pytest
 tests: test
+
+demo:
+	streamlit run demonstrator/__main__.py
