@@ -127,8 +127,8 @@ with ONTOLOGY:
     lea.started.append(pop_music_festivals)
 
     beatrice = Person("Beatrice")
-    beatrice.extend(pop_music_modules)
-    beatrice.extend([rock_music_famous_artists, rock_music_festivals])
+    beatrice.finished.extend(pop_music_modules)
+    beatrice.finished.extend([rock_music_famous_artists, rock_music_festivals])
     # next module should be rock_music_origin as difficulty_to_study_musical_style
     # already defined
 

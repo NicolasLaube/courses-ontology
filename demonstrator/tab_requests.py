@@ -1,9 +1,12 @@
 """Tab graph"""
 from inspect import signature
+from typing import Any, Callable
 
+import pandas as pd
 import streamlit as st
 
-from src.requests.requests_micro_learning import get_all_thematics, get_course_modules
+from demonstrator.utils.parser import parse
+from src.requests.requests_dict import SPARQL_REQUESTS
 
 
 def tab_requests_view():
@@ -13,7 +16,7 @@ def tab_requests_view():
 
     st.selectbox(
         "Select the type of request:",
-        ("Thematics", "Modules of course"),
+        SPARQL_REQUESTS.keys(),
         index=0,
         disabled=False,
         key="request",
@@ -21,7 +24,7 @@ def tab_requests_view():
 
     get_request_view()
 
-    st.button("Apply")
+    st.dataframe(st.session_state.get("df"))
 
 
 def get_request_view():
@@ -29,25 +32,33 @@ def get_request_view():
 
     request = st.session_state.get("request", True)
 
-    funct: callable = SPARQL_REQUESTS[request]
+    funct: Callable[[Any], Any] = SPARQL_REQUESTS[request]
 
     sig = signature(funct)
     params = sig.parameters
 
-    st.markdown(f"###### {funct.__doc__}")
+    with st.form(f"{funct.__doc__}"):
 
-    col1, col2 = st.columns(2)
+        st.markdown(f"###### {funct.__doc__}")
 
-    with col1:
         for param in params:
-            st.text(f"Please select {param.capitalize()}: ")
+            st.text_input(
+                f"Please enter {param.capitalize()}: ", value="", key=str(param)
+            )
 
-    with col2:
-        for param in params:
-            st.text_input("course id")
+        st.form_submit_button(
+            "Apply",
+            on_click=show_results,
+            args=[funct, *params],
+        )
 
 
-SPARQL_REQUESTS = {
-    "Thematics": get_all_thematics,
-    "Modules of course": get_course_modules,
-}
+def show_results(funct: Callable[[Any], Any], *args):
+    """Shows results"""
+    params_values = [parse(param, st.session_state.get(str(param))) for param in args]
+
+    results = funct(*params_values)
+
+    st.session_state["df"] = pd.DataFrame(
+        [str(ele[0]) for ele in results],
+    )

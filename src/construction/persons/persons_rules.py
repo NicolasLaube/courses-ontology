@@ -61,7 +61,7 @@ with ONTOLOGY:
     )
 
     # A person who finished a course didn't fail it
-    imp.set_as_rule(
-        """Person(?p), Course(?c), finished(?p, ?c)
-                          -> not(failed(?p, ?c))"""
-    )
+    # imp.set_as_rule(
+    #     """Person(?p), Course(?c), finished(?p, ?c)
+    #                       -> not(failed(?p, ?c))"""
+    # )
