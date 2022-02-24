@@ -1,7 +1,17 @@
-# Connaissance et raisonnement
+# README
+
+### Installations
+
+Pour installer tous les packqges requis pour ce projet, veuillez lance la commande `pip install -r requirements.txt`.
+
+### Executer le code
+
+#### Requêtes SPARQL
+
+Les requêtes sparQL correpsondent aux questions que nous nous étions posées pendant l'étape de défintion du domaine et de la portée.
+# Rapport de projet connaissances et raisonnements
 
 (Editable and updated version of the README)[https://hackmd.io/s/rkPHsd5RF].
-
 ## Introduction
 
 Ce projet s'inscrit dans le cadre de la filière entrepreneuriale et du cours de connaissances et raisonnement. Cognitio est une plateforme de micro learning dont l'objectif est d'améliorer la rétention d'information et l'amusement pendant l'apprentissage.

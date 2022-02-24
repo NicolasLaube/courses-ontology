@@ -1,12 +1,11 @@
-"""All SPARQL requests on OWL"""
-# pylint: disable=C0209
-from pprint import pprint
+"""SPARQL requests on courses"""
+# pylint: disable=C0209, E0401
 from typing import List
 
 from owlready2 import default_world
 
 from src.builder import ONTOLOGY
-from src.construction import Course
+from src.construction import Course, Module
 
 with ONTOLOGY:
 
@@ -19,20 +18,20 @@ with ONTOLOGY:
     GRAPH.serialize(destination="output.txt", format="turtle")
 
     def get_all_thematics() -> List[str]:
-        """Get all thematics"""
-        return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Thematic . }"))
+        """What are all thematics?"""
+        return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns2:Thematic . }"))
 
     def get_all_courses() -> List[str]:
-        """Get all thematics"""
-        return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Course . }"))
+        """What are all available courses?"""
+        return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns2:Course . }"))
 
-    def thematics_of_course(course: Course) -> List[str]:
-        """Get Thematic(s) of course"""
+    def get_course_thematics(course: Course) -> List[str]:
+        """To which thmatic(s) is course X assoicated?"""
         return list(
             GRAPH.query_owlready(
                 """SELECT ?b WHERE {
-                    ?b a ns1:Thematic .
-                    <%s> ns1:is_in_thematic ?b .
+                    ?b a ns2:Thematic .
+                    <%s> ns2:is_in_thematic ?b .
                 }
                 """
                 % course.iri
@@ -40,37 +39,57 @@ with ONTOLOGY:
         )
 
     def get_course_modules(course: Course):
-        """Get all modules of the course"""
+        """What are the modules of course X?"""
         return list(
             GRAPH.query_owlready(
                 """SELECT ?b WHERE {
-                    ?b a ns1:Module .
-                    <%s> ns1:has_as_module ?b .
+                    ?b a ns2:Module .
+                    <%s> ns2:has_as_module ?b .
                 }
                 """
                 % course.iri
+            )
+        )
+
+    def get_module_knowledge(module: Module):
+        """What knwoledge is acquired thanks to module X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns2:Knowledge .
+                    <%s> ns2:contains_knowledge ?b .
+                }
+                """
+                % module.iri
             )
         )
 
     def get_course_knowledge(course: Course):
-        """Get all knowledge acquired thanks to a course"""
+        """What knowledge is acquired thanks to course X?"""
         return list(
             GRAPH.query_owlready(
                 """SELECT ?b WHERE {
-                    ?b a ns1:Knowledge .
-                    ?m ns1:contains_knowledge ?b .
-                    <%s> ns1:has_as_module ?b .
+                    ?b a ns2:Knowledge .
+                    ?m ns2:contains_knowledge ?b .
+                    <%s> ns2:has_as_module ?b .
                 }
                 """
                 % course.iri
             )
         )
 
-    # def get_next_module(module_name: str):
-    #     """Get the module(s) immediately following module X"""
-
-    # def get_unlocked_modules(module_name: str):
-    #     """Get modules unlocked when a module is finished"""
+    def get_prerequisites(module: Module):
+        """What are the modules required for module X?"""
+        return list(
+            GRAPH.query_owlready(
+                """SELECT ?b WHERE {
+                    ?b a ns2:Module .
+                    <%s> ns2:requires_module ?b .
+                }
+                """
+                % module.iri
+            )
+        )
 
     # def get_course_duration(course_name: str):
     #     """Get the duration of a course"""
@@ -80,14 +99,3 @@ with ONTOLOGY:
 
     # def get_module_duration(module_name: str):
     #     """Get module duration"""
-
-    print("### Get all thematics ###")
-    print(get_all_thematics())
-    print("### Get all courses ###")
-    pprint(get_all_courses())
-    print("### Thematics of course ###")
-    pprint(thematics_of_course(ONTOLOGY.PopMusic))
-    print("### Modules of course ###")
-    pprint(get_course_modules(ONTOLOGY.PopMusic))
-    print("### Knowledge of course ###")
-    pprint(get_course_knowledge(ONTOLOGY.PopMusic))
