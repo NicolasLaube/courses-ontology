@@ -10,4 +10,6 @@ with ONTOLOGY:
     literature = Thematic("Literature")
     astronomy = Thematic("Astronomy")
     geopolitic = Thematic("Geopolitics")
+    information_technologies = Thematic("InformationTechnologies")
     economy = Thematic("Economy")
+    finance = Thematic("Finance")

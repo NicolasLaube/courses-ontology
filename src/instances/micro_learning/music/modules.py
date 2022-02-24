@@ -1,7 +1,7 @@
 """Biology modules"""
 from src.builder import ONTOLOGY
 from src.construction.micro_learning.classes import Module
-from src.instances.micro_learning.music.courses import pop_music
+from src.instances.micro_learning.music.courses import pop_music, rock_music
 
 with ONTOLOGY:
     # Pop music course
@@ -532,3 +532,7 @@ with ONTOLOGY:
         fanzines,
         women_in_rock_music,
     ]
+
+    # Relations
+
+    rock_music.has_as_module.extend(rock_music_modules)
