@@ -434,6 +434,7 @@ with ONTOLOGY:
     women_in_rock_music.requires_module.extend([rock_spirit])
 
     rock_music_modules = [
+        rock_music_presentation,
         rock_music_famous_artists,
         rock_music_festivals,
         difficulty_to_study_musical_style,

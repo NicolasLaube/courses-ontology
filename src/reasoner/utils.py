@@ -55,3 +55,9 @@ def pyswip_to_str(results):
         for k, v in result.items():
             all_results[-1][k] = pyswip_output_to_str(v)
     return all_results
+
+
+def pyswip_to_onto(onto, inp):
+    """Transforms a pyswift output into an individual"""
+    str_inp = pyswip_output_to_str(inp)
+    return onto.search_one(iri=f"*#{str_inp}")
