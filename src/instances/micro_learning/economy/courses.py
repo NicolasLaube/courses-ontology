@@ -4,6 +4,8 @@ from src.construction.micro_learning.classes import Course
 from src.instances.micro_learning.thematics import economy
 
 with ONTOLOGY:
+    micro_economics = Course("Microeconomics")
+
     numeric_economy = Course("NumericEconomy")
     currency_and_financial_institutions = Course("CurrencyAndFinancialInstituations")
     poverties_and_inequialities = Course("PovertyAndInequalities")

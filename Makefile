@@ -13,3 +13,6 @@ lint:
 test:
 	pytest
 tests: test
+
+build:
+	python -m src.construction

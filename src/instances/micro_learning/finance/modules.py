@@ -1,12 +1,12 @@
 """Economy modules"""
 from src.builder import ONTOLOGY
 from src.construction.micro_learning.classes import Module
+from src.instances.micro_learning.economy.modules import exchange_markets, interest_rate
 from src.instances.micro_learning.finance.courses import (
     business_finance,
-    market_finance,
     insurance,
+    market_finance,
 )
-from src.instances.micro_learning.economy.modules import exchange_markets, interest_rate
 
 with ONTOLOGY:
     # Market Finance course
@@ -28,7 +28,7 @@ with ONTOLOGY:
     market_capitalization.requires_module.extend([debt, commodities, financial_value])
     leverage.requires_module.extend([lending])
     financial_regulation.requires_module.extend([exchange_markets, leverage])
-    capital_efficiency.requires_modules.extend([lending])
+    capital_efficiency.requires_module.extend([lending])
 
     market_finance_modules = [
         debt,
@@ -51,7 +51,9 @@ with ONTOLOGY:
 
     intial_public_offering = Module("InitialPublicOffering")
 
-    intial_public_offering.requires_module.extend([stocks, exchange_markets, financial_value])
+    intial_public_offering.requires_module.extend(
+        [stocks, exchange_markets, financial_value]
+    )
 
     business_finance_modules = [
         stocks,
