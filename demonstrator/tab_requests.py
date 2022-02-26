@@ -24,6 +24,8 @@ def tab_requests_view():
 
     get_request_view()
 
+    st.markdown("## Results:")
+
     st.dataframe(st.session_state.get("df"))
 
 
@@ -60,5 +62,9 @@ def show_results(funct: Callable[[Any], Any], *args):
     results = funct(*params_values)
 
     st.session_state["df"] = pd.DataFrame(
-        [str(ele[0]) for ele in results],
+        [
+            [str(ele[0].name), str(ele[0].label.fr), str(ele[0].comment.fr)]
+            for ele in results
+        ],
+        columns=["Id", "Label", "Comments"],
     )

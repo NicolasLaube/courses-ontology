@@ -14,5 +14,8 @@ test:
 	pytest
 tests: test
 
+build:
+	python -m src.construction
+
 demo:
 	streamlit run demonstrator/__main__.py
