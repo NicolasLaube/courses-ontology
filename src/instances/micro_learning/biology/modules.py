@@ -35,9 +35,7 @@ with ONTOLOGY:
     enterotypes = Module("Enterotypes")
     enterotypes.requires_module.extend([human_microbiota])
     microbiota_through_life = Module("MicrobiotaThroughLife")
-    microbiota_through_life.requires_module.extend(
-        [phylogenetic_kernel, microbiota_through_life]
-    )
+    microbiota_through_life.requires_module.extend([phylogenetic_kernel])
     microbiota_during_pregnancy = Module("MicrobiotaDuringPregnancy")
     microbiota_during_pregnancy.requires_module.extend([microbiota_through_life])
     microbiota_and_antibiotics = Module("MicrobiotaAndAntibiotics")

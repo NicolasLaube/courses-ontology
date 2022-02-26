@@ -1,7 +1,7 @@
 """Biology modules"""
 from src.builder import ONTOLOGY
 from src.construction.micro_learning.classes import Module
-from src.instances.micro_learning.music.courses import pop_music
+from src.instances.micro_learning.music.courses import pop_music, rock_music
 
 with ONTOLOGY:
     # Pop music course
@@ -19,9 +19,9 @@ with ONTOLOGY:
     pop_music_origin = Module("PopMusicOrigin")
     pop_music_origin.requires_module.extend([pop_music_festivals])
     rock_n_roll_presentation = Module("RockNRollPresentation")
-    rock_n_roll_presentation.requires_module.extend([rock_n_roll_presentation])
-    rock_music_presentation = Module("RockMusicPresentation")
-    rock_music_presentation.requires_module.extend([rock_n_roll_presentation])
+    rock_n_roll_presentation.requires_module.extend([pop_music_origin])
+    rock_music_summary = Module("RockMusicSummary")
+    rock_music_summary.requires_module.extend([rock_n_roll_presentation])
     pop_music_sixties = Module("PopMusicSixties")
     pop_music_sixties.requires_module.extend([rock_n_roll_presentation])
     beatles = Module("Beatles")
@@ -153,7 +153,7 @@ with ONTOLOGY:
         difficulty_to_study_musical_style,
         pop_music_origin,
         rock_n_roll_presentation,
-        rock_music_presentation,
+        rock_music_summary,
         pop_music_sixties,
         beatles,
         pop_music_seventies,
@@ -214,7 +214,7 @@ with ONTOLOGY:
     # Rock music course
 
     # Introduction part
-    # rock_music_presentation is already defined
+    rock_music_presentation = Module("RockMusicPresentation")
     rock_music_famous_artists = Module("RockMusicFamousArtists")
     rock_music_famous_artists.requires_module.extend([rock_music_presentation])
     rock_music_festivals = Module("RockMusicFestivals")
@@ -226,7 +226,7 @@ with ONTOLOGY:
     rock_music_origin = Module("RockMusicOrigin")
     rock_music_origin.requires_module.extend([rock_music_festivals])
     # rock_n_roll_presentation already defined
-    rock_n_roll_presentation.requires_module.extend([rock_n_roll_presentation])
+    rock_n_roll_presentation.requires_module.extend([rock_music_origin])
     rockabily = Module("Rockabily")
     rockabily.requires_module.extend([rock_n_roll_presentation])
     elvis_presley = Module("ElvisPresley")
@@ -235,10 +235,10 @@ with ONTOLOGY:
     chuck_berry.requires_module.extend([rockabily])
     doo_wop = Module("DooWop")
     doo_wop.requires_module.extend([rock_n_roll_presentation])
-    # pop_music_presentation already defined
-    pop_music_presentation.requires_module.extend([rockabily, doo_wop])
+    pop_music_summary = Module("PopMusicSummary")
+    pop_music_summary.requires_module.extend([rockabily, doo_wop])
     rock_music_sixties = Module("RockMusicSixties")
-    rock_music_sixties.requires_module.extend([pop_music_presentation])
+    rock_music_sixties.requires_module.extend([pop_music_summary])
     rolling_stones = Module("RollingStones")
     rolling_stones.requires_module.extend([rock_music_sixties])
     mod_subculture = Module("ModSubculture")
@@ -434,6 +434,7 @@ with ONTOLOGY:
     women_in_rock_music.requires_module.extend([rock_spirit])
 
     rock_music_modules = [
+        rock_music_presentation,
         rock_music_famous_artists,
         rock_music_festivals,
         difficulty_to_study_musical_style,
@@ -443,7 +444,7 @@ with ONTOLOGY:
         elvis_presley,
         chuck_berry,
         doo_wop,
-        pop_music_presentation,
+        pop_music_summary,
         rock_music_sixties,
         rolling_stones,
         mod_subculture,
@@ -532,3 +533,7 @@ with ONTOLOGY:
         fanzines,
         women_in_rock_music,
     ]
+
+    # Relations
+
+    rock_music.has_as_module.extend(rock_music_modules)
