@@ -12,13 +12,22 @@ with ONTOLOGY:
     literature = Thematic("Literature")
     astronomy = Thematic("Astronomy")
     geopolitic = Thematic("Geopolitics")
+    information_technologies = Thematic("InformationTechnologies")
     economy = Thematic("Economy")
+    finance = Thematic("Finance")
 
     economy.label = [
         locstr("L'économie", "fr"),
         locstr("The economy", "en"),
         locstr("Die Wirtschaft", "de"),
         locstr("Economia", "es"),
+    ]
+
+    finance.label = [
+        locstr("La finance", "fr"),
+        locstr("Finance", "en"),
+        locstr("Finanzen", "de"),
+        locstr("Finanzas", "es"),
     ]
 
     geopolitic.label = [
@@ -68,4 +77,11 @@ with ONTOLOGY:
         locstr("The Litterature", "en"),
         locstr("Die Literatur", "de"),
         locstr("La literatura", "es"),
+    ]
+
+    information_technologies.label = [
+        locstr("Sciences de l'information", "fr"),
+        locstr("Information technologies", "en"),
+        locstr("Informationstechnologien", "de"),
+        locstr("Tecnologías de la información", "es"),
     ]
