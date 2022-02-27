@@ -18,6 +18,12 @@ with ONTOLOGY:
                         -> started(?p, ?m)"""
     )
 
+    # if a person finished all modules he finished the course
+    imp.set_as_rule(
+        """Person(?p), Module(?m), Course(?c), has_as_module(?c, ?m), finished(?p, ?m),
+                        -> finished(?p, ?c)"""
+    )
+
     # if a person started a module he started the course
     imp.set_as_rule(
         """Person(?p), Module(?m), started(?p, ?m), Course(?c),

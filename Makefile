@@ -16,3 +16,5 @@ tests: test
 
 build:
 	python -m src.construction
+requests:
+	python -m src.requests
