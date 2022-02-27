@@ -6,7 +6,7 @@ from owlready2 import default_world
 
 from src.builder import ONTOLOGY
 from src.construction import Course, Learner, Module
-from src.construction.micro_learning.classes import Knowledge
+from src.construction.micro_learning.micro_learning_classes import Knowledge
 from src.construction.persons.persons_classes import Person
 
 with ONTOLOGY:
@@ -26,16 +26,16 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Module .
-                    ?b ns2:requires_module <%s> .
+                    ?b a ns1:Module .
+                    ?b ns1:requires_module <%s> .
 
                     OPTIONAL {
-                        ?b ns2:requires_module ?m1 .
-                        <%s> ns2:finished ?m1 .
+                        ?b ns1:requires_module ?m1 .
+                        <%s> ns1:finished_module ?m1 .
                         FILTER (?m1 != <%s>) .
                     }
                     OPTIONAL {
-                        <%s> ns2:finished ?m2 .
+                        <%s> ns1:finished_module ?m2 .
                         FILTER (?m1 = ?m2) .
                     }
                     FILTER(!bound(?m1)) .
@@ -58,11 +58,23 @@ with ONTOLOGY:
             ele[0]
             for ele in list(
                 GRAPH.query_owlready(
-                    """SELECT ?b WHERE {
-                    ?b a ns2:Person .
-                    ?b ns2:finished <%s> .
+                    """SELECT DISTINCT ?b WHERE {
+                    {
+                        ?b a ns1:Person .
+                        <%s> ns1:has_as_module ?m .
+
+
+                        FILTER NOT EXISTS {
+                            ?b ns1:finished_module ?m2 .
+                            FILTER (?m2 = ?m) .
+                        }
+                        FILTER(!bound(?m2))
+
+                    } UNION {
+                        ?b ns1:finished_course <%s> .
+                    }
                 }"""
-                    % course.iri
+                    % (course.iri, course.iri)
                 )
             )
         ]
@@ -74,8 +86,8 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Person .
-                    ?b ns2:created <%s> .
+                    ?b a ns1:Person .
+                    ?b ns1:created_course <%s> .
                 }"""
                     % course.iri
                 )
@@ -89,9 +101,9 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Knowledge .
-                    ?b ns2:is_in_module ?m .
-                    <%s> ns2:finished ?m .
+                    ?b a ns1:Knowledge .
+                    ?b ns1:is_in_module ?m .
+                    <%s> ns1:finished_module ?m .
                 }
                 """
                     % learner.iri
@@ -107,15 +119,15 @@ with ONTOLOGY:
     #         for ele in list(
     #             GRAPH.query_owlready(
     #                 """SELECT DISTINCT ?c WHERE {
-    #                 ?c a ns2:Course .
+    #                 ?c a ns1:Course .
 
     #                 {
     #                     SELECT ?prereq WHERE {
-    #                         ?b a ns2:Module .
-    #                         ?c ns2:has_as_module ?d .
-    #                         ?d ns2:requires_module ?b .
+    #                         ?b a ns1:Module .
+    #                         ?c ns1:has_as_module ?d .
+    #                         ?d ns1:requires_module ?b .
     #                         MINUS {
-    #                             ?c ns2:has_as_module ?b .
+    #                             ?c ns1:has_as_module ?b .
     #                         }
     #                     }
     #                 }

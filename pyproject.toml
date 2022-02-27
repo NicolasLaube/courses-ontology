@@ -5,4 +5,5 @@ multi_line_output = 3
 [tool.pytest.ini_options]
 markers = [
     "requests: Requests",
+    "instances: Instances tests"
 ]

@@ -22,7 +22,7 @@ with ONTOLOGY:
         return [
             ele[0]
             for ele in list(
-                GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns2:Thematic . }")
+                GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Thematic . }")
             )
         ]
 
@@ -31,7 +31,7 @@ with ONTOLOGY:
         return [
             ele[0]
             for ele in list(
-                GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns2:Course . }")
+                GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Course . }")
             )
         ]
 
@@ -42,8 +42,8 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Thematic .
-                    <%s> ns2:is_in_thematic ?b .
+                    ?b a ns1:Thematic .
+                    <%s> ns1:is_in_thematic ?b .
                 }
                 """
                     % course.iri
@@ -58,8 +58,8 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Module .
-                    <%s> ns2:has_as_module ?b .
+                    ?b a ns1:Module .
+                    <%s> ns1:has_as_module ?b .
                 }
                 """
                     % course.iri
@@ -74,8 +74,8 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Knowledge .
-                    <%s> ns2:contains_knowledge ?b .
+                    ?b a ns1:Knowledge .
+                    <%s> ns1:contains_knowledge ?b .
                 }
                 """
                     % module.iri
@@ -90,9 +90,9 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
-                    ?b a ns2:Knowledge .
-                    ?m ns2:contains_knowledge ?b .
-                    <%s> ns2:has_as_module ?b .
+                    ?b a ns1:Knowledge .
+                    ?m ns1:contains_knowledge ?b .
+                    <%s> ns1:has_as_module ?b .
                 }
                 """
                     % course.iri
@@ -107,8 +107,8 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT DISTINCT ?b WHERE {
-                    ?b a ns2:Module .
-                    <%s> ns2:requires_module ?b .
+                    ?b a ns1:Module .
+                    <%s> ns1:requires_module ?b .
                 }
                 """
                     % module.iri
@@ -123,11 +123,11 @@ with ONTOLOGY:
             for ele in list(
                 GRAPH.query_owlready(
                     """SELECT DISTINCT ?b WHERE {
-                    ?b a ns2:Module .
-                    <%s> ns2:has_as_module ?d .
-                    ?d ns2:requires_module ?b .
+                    ?b a ns1:Module .
+                    <%s> ns1:has_as_module ?d .
+                    ?d ns1:requires_module ?b .
                     MINUS {
-                        <%s> ns2:has_as_module ?b .
+                        <%s> ns1:has_as_module ?b .
                     }
                 }
                 """

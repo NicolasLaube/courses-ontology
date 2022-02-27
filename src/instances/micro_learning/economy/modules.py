@@ -1,6 +1,6 @@
 """Economy modules"""
 from src.builder import ONTOLOGY
-from src.construction.micro_learning.classes import Module
+from src.construction.micro_learning.micro_learning_classes import Module
 from src.instances.micro_learning.economy.courses import macroeconomy, micro_economics
 
 with ONTOLOGY:

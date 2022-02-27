@@ -18,39 +18,45 @@ with ONTOLOGY:
     @pytest.mark.requests
     def test_courses_list() -> None:
         """Test course list"""
-        true_courses_ = [
-            ONTOLOGY.Microbiota.name,
-            ONTOLOGY.TheoryOfEvolution.name,
-            ONTOLOGY.NumericEconomy.name,
-            ONTOLOGY.CurrencyAndFinancialInstituations.name,
-            ONTOLOGY.PovertyAndInequalities.name,
-            ONTOLOGY.Macroeconomy.name,
-            ONTOLOGY.PopMusic.name,
-            ONTOLOGY.ClassicalMusic.name,
-            ONTOLOGY.RockMusic.name,
-            ONTOLOGY.Microeconomics.name,
-            ONTOLOGY.BusinessFinance.name,
-            ONTOLOGY.MarketFinance.name,
-            ONTOLOGY.Insurance.name,
-        ]
-        assert true_courses_ == [course_.name for course_ in get_all_courses()]
+        true_courses_ = sorted(
+            [
+                ONTOLOGY.Microbiota.name,
+                ONTOLOGY.TheoryOfEvolution.name,
+                ONTOLOGY.NumericEconomy.name,
+                ONTOLOGY.CurrencyAndFinancialInstituations.name,
+                ONTOLOGY.PovertyAndInequalities.name,
+                ONTOLOGY.Macroeconomy.name,
+                ONTOLOGY.PopMusic.name,
+                ONTOLOGY.ClassicalMusic.name,
+                ONTOLOGY.RockMusic.name,
+                ONTOLOGY.Microeconomics.name,
+                ONTOLOGY.BusinessFinance.name,
+                ONTOLOGY.MarketFinance.name,
+                ONTOLOGY.Insurance.name,
+            ]
+        )
+        assert true_courses_ == sorted([course_.name for course_ in get_all_courses()])
 
     @pytest.mark.requests
     def test_thematics_list() -> None:
         """Test thematics list"""
-        true_thematics_ = [
-            ONTOLOGY.Biology.name,
-            ONTOLOGY.History.name,
-            ONTOLOGY.Music.name,
-            ONTOLOGY.Arts.name,
-            ONTOLOGY.Literature.name,
-            ONTOLOGY.Astronomy.name,
-            ONTOLOGY.Geopolitics.name,
-            ONTOLOGY.Economy.name,
-            ONTOLOGY.InformationTechnologies.name,
-            ONTOLOGY.Finance.name,
-        ]
-        assert true_thematics_ == [thematic_.name for thematic_ in get_all_thematics()]
+        true_thematics_ = sorted(
+            [
+                ONTOLOGY.Biology.name,
+                ONTOLOGY.History.name,
+                ONTOLOGY.Music.name,
+                ONTOLOGY.Arts.name,
+                ONTOLOGY.Literature.name,
+                ONTOLOGY.Astronomy.name,
+                ONTOLOGY.Geopolitics.name,
+                ONTOLOGY.Economy.name,
+                ONTOLOGY.InformationTechnologies.name,
+                ONTOLOGY.Finance.name,
+            ]
+        )
+        assert true_thematics_ == sorted(
+            [thematic_.name for thematic_ in get_all_thematics()]
+        )
 
     @pytest.mark.requests
     def test_course_modules() -> None:

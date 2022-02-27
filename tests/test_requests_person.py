@@ -12,20 +12,20 @@ from src.requests.requests_persons import (  # get_learner_accessible_courses,
 with ONTOLOGY:
 
     @pytest.mark.requests
-    def test_course_creators() -> None:
+    def test_course_creator() -> None:
         """Test course creators"""
         pop_creators = get_course_creators(ONTOLOGY.PopMusic)
 
-        assert ONTOLOGY.Antoine.name in [creator.name for creator in pop_creators]
+        assert ONTOLOGY.Antoine in pop_creators
 
     @pytest.mark.requests
     def test_course_finishers() -> None:
         """Test course finishers"""
-        pop_finishers = [
-            finisher.name for finisher in get_course_finishers(ONTOLOGY.PopMusic)
-        ]
-        assert ONTOLOGY.Nicolas.name not in pop_finishers
-        assert ONTOLOGY.Beatrice.name in pop_finishers
+        print(get_course_finishers(ONTOLOGY.PopMusic))
+
+        assert [ONTOLOGY.Beatrice, ONTOLOGY.Paola] == get_course_finishers(
+            ONTOLOGY.PopMusic
+        )
 
     @pytest.mark.requests
     def test_unlocked_modules() -> None:
