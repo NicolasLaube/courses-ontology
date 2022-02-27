@@ -47,11 +47,14 @@ def get_module_levels_in_course(course):
         pyswip_to_onto(ontology, x.strip()) for i, x in enumerate(tab_res) if i % 2 == 1
     ]
     table_levels = [int(x.strip()) for i, x in enumerate(tab_res) if i % 2 == 0]
-    max_level = max(table_levels)
-    table_merged_levels = [[] for _ in range(max_level + 1)]
-    for level, entity in zip(table_levels, table_entities):
-        table_merged_levels[level].append(entity)
-    return table_merged_levels
+    if len(table_levels) > 0:
+        max_level = max(table_levels)
+        table_merged_levels = [[] for _ in range(max_level + 1)]
+        for level, entity in zip(table_levels, table_entities):
+            table_merged_levels[level].append(entity)
+        return table_merged_levels
+    else:
+        return []
 
 
 def get_min_dependencies_in_course(course):
