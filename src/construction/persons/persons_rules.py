@@ -58,67 +58,16 @@ with ONTOLOGY:
     )
 
     # Finishers
-    # A person who finsished all module of course, finsihed the course
+
+    # if a person finished a course he finished all modules
     imp.set_as_rule(
-        """Person(?p), Course(?c), Module(?m), finished_module(?p, ?m), has_as_module(?c, ?m)
-                          -> finished_course(?c)"""
+        """Person(?p), Course(?c), finished_course(?p, ?c), Module(?m),
+                        has_as_module(?c, ?m) -> finished_module(?p, ?m)"""
     )
 
-    # #if a person finished a course he finished all modules
-    # imp.set_as_rule(
-    #     """Person(?p), Course(?c), finished_course(?p, ?c),
-    #                     has_as_module(?c, ?m), Module(?m) -> finished_module(?p, ?m)"""
-    # )
-
-    # # if a person finished a module he started it
-    # imp.set_as_rule(
-    #     """Person(?p), Module(?m), finished_module(?p, ?m),
-    #                     -> started_module(?p, ?m)"""
-    # )
-
-    # # if a person finished all modules he finished the course
-    # # imp.set_as_rule(
-    # #     """Person(?p), Module(?m), Course(?c), has_as_module(?c, ?m), finished_module(?p, ?m),
-    # #                     -> finished_course(?p, ?c)"""
-    # # )
-
-    # # if a person started a module he started the course
-    # imp.set_as_rule(
-    #     """Person(?p), Module(?m), started_module(?p, ?m), Course(?c),
-    #                     has_as_module(?c, ?m) -> started_course(?p, ?c)"""
-    # )
-
-    # # A person who started a module is a learner
-    # imp.set_as_rule(
-    #     """Person(?p), Module(?m), started_module(?p, ?m)
-    #                       -> Learner(?p)"""
-    # )
-    # # A person who started a module is a learner
-    # imp.set_as_rule(
-    #     """Person(?p), Module(?m), finished_module(?p, ?m)
-    #                       -> Learner(?p)"""
-    # )
-
-    # # A person who started a course is a learner
-    # imp.set_as_rule(
-    #     """Person(?p), Course(?m), started_course(?p, ?m)
-    #                       -> Learner(?p)"""
-    # )
-
-    # A person who created a module is a creator
-    # imp.set_as_rule(
-    #     """Person(?p), Module(?m), created_module(?p, ?m)
-    #                       -> Creator(?p)"""
-    # )
-
+    # Reviewer
     # A person who reviews another person is a Reviewer
-    # imp.set_as_rule(
-    #     """Person(?p1), Person(?p2), reviewed(?p1, ?p2)
-    #                       -> Reviewer(?p2)"""
-    # )
-
-    # A person who finished a course didn't fail it
-    # imp.set_as_rule(
-    #     """Person(?p), Course(?c), finished(?p, ?c)
-    #                       -> not(failed(?p, ?c))"""
-    # )
+    imp.set_as_rule(
+        """Person(?p1), Person(?p2), reviewed(?p1, ?p2)
+                          -> Reviewer(?p1)"""
+    )

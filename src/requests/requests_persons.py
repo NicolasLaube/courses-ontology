@@ -58,23 +58,25 @@ with ONTOLOGY:
             ele[0]
             for ele in list(
                 GRAPH.query_owlready(
-                    """SELECT DISTINCT ?b WHERE {
+                    """SELECT DISTINCT ?c WHERE {
                     {
-                        ?b a ns1:Person .
+
+                        ?c a ns1:Person .
                         <%s> ns1:has_as_module ?m .
-
-
-                        FILTER NOT EXISTS {
-                            ?b ns1:finished_module ?m2 .
-                            FILTER (?m2 = ?m) .
+                        OPTIONAL {
+                            ?b a ns1:Person .
+                            <%s> ns1:has_as_module ?m2 .
+                            FILTER(NOT EXISTS{ ?b ns1:finished_module ?m2 } )
+                            FILTER(?m2 = ?m)
                         }
-                        FILTER(!bound(?m2))
+                        FILTER (?c != ?b)
+
 
                     } UNION {
-                        ?b ns1:finished_course <%s> .
+                        ?c ns1:finished_course <%s> .
                     }
                 }"""
-                    % (course.iri, course.iri)
+                    % (course.iri, course.iri, course.iri)  # ILTER (bound(?a)) AS ?a
                 )
             )
         ]
@@ -111,32 +113,32 @@ with ONTOLOGY:
             )
         ]
 
-    # def get_learner_accessible_courses(learner: Learner) -> List[Course]:
-    #     """Get all modules of the course"""
-    #     # TO DO repair doesnt't work
-    #     return [
-    #         ele[0]
-    #         for ele in list(
-    #             GRAPH.query_owlready(
-    #                 """SELECT DISTINCT ?c WHERE {
-    #                 ?c a ns1:Course .
+    def get_learner_accessible_courses(learner: Learner) -> List[Course]:
+        """Get all modules of the course"""
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT DISTINCT ?c WHERE {
+                        ?c a ns1:Course.
+                        MINUS {
+                            ?c ns1:has_as_module ?d .
+                            ?d ns1:requires_module ?prereq .
 
-    #                 {
-    #                     SELECT ?prereq WHERE {
-    #                         ?b a ns1:Module .
-    #                         ?c ns1:has_as_module ?d .
-    #                         ?d ns1:requires_module ?b .
-    #                         MINUS {
-    #                             ?c ns1:has_as_module ?b .
-    #                         }
-    #                     }
-    #                 }
-    #             }
-    #             """
-    #                 # % learner.iri
-    #             )
-    #         )
-    #     ]
+                            OPTIONAL {
+                                ?c2 a ns1:Course .
+                                FILTER(EXISTS { ?c2 ns1:has_as_module ?prereq. })
+                                FILTER(NOT EXISTS { <%s> ns1:finished ?prereq. })
+                                FILTER(?c != ?c2)
+                            }
+                            FILTER(bound(?c2))
+                        }
+                    }
+                    """
+                    % learner.iri
+                )
+            )
+        ]
 
     def get_modules_to_revise(learner: Learner) -> List[Module]:
         """What are the Modules that Learner Y should revise?"""
@@ -213,3 +215,27 @@ with ONTOLOGY:
     # pprint(get_course_modules(ONTOLOGY.PopMusic))
     # print("### Knowledge of course ###")
     # pprint(get_course_knowledge(ONTOLOGY.PopMusic))
+
+
+# {
+#         ?c a ns1:Person .
+#         OPTIONAL {
+#             ?b a ns1:Person .
+#             <%s> ns1:has_as_module ?m .
+#             OPTIONAL {
+
+#                 <%s> ns1:has_as_module ?m2 .
+#                 ?b2 ns1:finished_module ?m2 .
+#                 FILTER (?b2 = ?b) .
+#                 FILTER (?m2 = ?m) .
+
+#             }
+#             FILTER(!bound(?b2))
+#             FILTER(!bound(?m2))
+
+#         }
+#         FILTER (?c != ?b)
+
+#     } UNION {
+#         ?b ns1:finished_course <%s> .
+#     }
