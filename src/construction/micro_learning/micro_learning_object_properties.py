@@ -37,10 +37,10 @@ with ONTOLOGY:
 
         inverse_property = is_in_module
 
-    class requires_module(Module >> Module, TransitiveProperty):  # type: ignore
+    class requires_module(Module >> Module):  # type: ignore
         """Module X requires module Y"""
 
-    class is_required_by_modules(Module >> Module, TransitiveProperty):  # type: ignore
+    class is_required_by_modules(Module >> Module):  # type: ignore
         """Module X is required by module by module Y"""
 
         inverse_property = requires_module
