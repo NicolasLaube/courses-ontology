@@ -41,6 +41,13 @@ def get_min_dependencies(module, course):
     return [pyswip_output_to_str(dep) for dep in list(results)[0]["Dependencies"]]
 
 
+def get_all_modules_in_course(course):
+    """To get all the modules of a specific course"""
+    command = f"find_course_modules('{course}', [], CourseModules)"
+    results = prolog.query(command)
+    return [pyswip_output_to_str(dep) for dep in list(results)[0]["CourseModules"]]
+
+
 def get_module_levels_in_course(course):
     """To get the graph level of all the modules of a specific course"""
     command = f"get_all_levels_for_course('{course}', AllLevels)"

@@ -93,7 +93,9 @@ with ONTOLOGY:
     microbiota_on_axenic_animals = Module("MicrobiotaOnAxenicAnimals")
     microbiota_on_axenic_animals.requires_module.extend([researches_on_microbiota])
     microbiota_meta_genomic_study = Module("MicrobiotaMetaGenomicStudy")
-    microbiota_meta_genomic_study.requires_module.extend([researches_on_microbiota])
+    microbiota_meta_genomic_study.requires_module.extend(
+        [researches_on_microbiota, environment_influence_on_microbiota]
+    )
 
     microbiota_modules = [
         microbiota_presentation,

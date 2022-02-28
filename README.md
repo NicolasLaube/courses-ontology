@@ -23,7 +23,8 @@ Les requêtes sparQL correpsondent aux questions que nous nous étions posées p
 
 ### Lancer les tests
 
-Pour lancer les tests, il vous suffit d'exécuter la commande `make test`.
+Pour lancer les tests, il vous suffit d'exécuter la commande `make test`.\
+Si elle ne marche pas, vous pouvez aussi utiliser la commande `pytest`.
 
 # Rapport de projet connaissances et raisonnements
 

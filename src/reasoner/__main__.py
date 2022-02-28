@@ -2,6 +2,7 @@ from src.reasoner import (
     get_module_level,
     get_all_dependencies,
     get_min_dependencies,
+    get_all_modules_in_course,
     get_module_levels_in_course,
     get_min_dependencies_in_course,
 )
@@ -24,5 +25,6 @@ print(
         "Microbiota",
     )
 )
+print(get_all_modules_in_course("Microbiota"))
 print(get_module_levels_in_course("RockMusic"))
 print(get_min_dependencies_in_course("RockMusic"))
