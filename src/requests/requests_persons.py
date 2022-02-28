@@ -12,7 +12,7 @@ from src.construction.persons.persons_classes import Person
 with ONTOLOGY:
 
     GRAPH = default_world.as_rdflib_graph()
-    # @prefix ns1: <file://C:/Users/nicol/Documents/CS/3A/CR/projet/cr/storage/capsule.owl#> .
+    # @prefix ns1: <file://C:/Users/nicol/Documents/CS/3A/CR/projet/cr/storage/ns1ule.owl#> .
     # @prefix owl: <http://www.w3.org/2002/07/owl#> .
     # @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
     # @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
