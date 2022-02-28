@@ -2,28 +2,40 @@ from src.reasoner import (
     get_module_level,
     get_all_dependencies,
     get_min_dependencies,
+    get_all_modules_in_course,
     get_module_levels_in_course,
     get_min_dependencies_in_course,
 )
-from src import ontology
 
+print("\nModule level for module WomenInRockMusic:")
 print(
     get_module_level(
-        ontology.search_one(iri="*#WomenInRockMusic"),
-        ontology.search_one(iri="*#RockMusic"),
+        "WomenInRockMusic",
+        "RockMusic",
     )
 )
+
+print("\nAll dependencies for module MicrobiotaMetaGenomicStudy:")
 print(
     get_all_dependencies(
-        ontology.search_one(iri="*#MicrobiotaMetaGenomicStudy"),
-        ontology.search_one(iri="*#Microbiota"),
+        "MicrobiotaMetaGenomicStudy",
+        "Microbiota",
     )
 )
+
+print("\nMin dependencies for module MicrobiotaMetaGenomicStudy:")
 print(
     get_min_dependencies(
-        ontology.search_one(iri="*#MicrobiotaMetaGenomicStudy"),
-        ontology.search_one(iri="*#Microbiota"),
+        "MicrobiotaMetaGenomicStudy",
+        "Microbiota",
     )
 )
-print(get_module_levels_in_course(ontology.search_one(iri="*#RockMusic")))
-print(get_min_dependencies_in_course(ontology.search_one(iri="*#RockMusic")))
+
+print("\nAll modules of course Microbiota:")
+print(get_all_modules_in_course("Microbiota"))
+
+print("\nAll levels in course RockMusic:")
+print(get_module_levels_in_course("RockMusic"))
+
+print("\nAll min dependencies in course RockMusic:")
+print(get_min_dependencies_in_course("RockMusic"))

@@ -76,7 +76,7 @@ declare_datatype(
 
 default_world.set_backend(filename=SQLITE3_PATH)
 if os.path.exists(ONTOLOGY_PATH):
-    print("Ok")
+    print("Ontology already saved, loading it")
     ONTOLOGY = load_ontology()
 else:
     ONTOLOGY = get_ontology(ONTOLOGY_IRI)

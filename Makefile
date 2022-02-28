@@ -1,5 +1,6 @@
 install:
 	pip install -r requirements.txt
+	conda install --channel conda-forge pygraphviz
 
 install-dev:
 	pip install -r requirements-dev.txt
@@ -15,8 +16,13 @@ test:
 tests: test
 
 build:
-	python -m src.construction
+	python -m src.build
+
+demo:
+	streamlit run demonstrator/__main__.py
+
 requests:
 	python -m src.requests
-checker:
-	python -m src.checker
+	
+reasoner:
+	python -m src.reasoner
