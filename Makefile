@@ -1,5 +1,6 @@
 install:
 	pip install -r requirements.txt
+	conda install --channel conda-forge pygraphviz
 
 install-dev:
 	pip install -r requirements-dev.txt
