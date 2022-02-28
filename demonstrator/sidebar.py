@@ -9,9 +9,7 @@ def sidebar_view():
 
     st.sidebar.markdown("## Navigation")
 
-    st.sidebar.radio(
-        "Pick tab", ("Requests", "Graphs", "Add user", "Add course"), key="navigation"
-    )
+    st.sidebar.radio("Pick tab", ("Requests", "Graphs"), key="navigation")
 
     st.sidebar.markdown("### About")
 

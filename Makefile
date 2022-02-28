@@ -24,8 +24,5 @@ demo:
 requests:
 	python -m src.requests
 	
-checker:
-	python -m src.checker
-	
 reasoner:
 	python -m src.reasoner

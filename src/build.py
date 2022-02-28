@@ -13,8 +13,6 @@ with ONTOLOGY:
         sync_reasoner_pellet(
             infer_property_values=True, infer_data_property_values=True
         )
-
-        print(list(ONTOLOGY.rules()))
     except OwlReadyInconsistentOntologyError as e:
         print("Error: ", str(e))
         print("Ontology is inconsistent")

@@ -86,4 +86,6 @@ def get_graph_view():
         staticGraph=False,
         initialZoom=1.2,
     )
-    agraph(nodes=nodes, edges=edges, config=config)
+
+    if len(nodes) > 0:
+        agraph(nodes=nodes, edges=edges, config=config)
