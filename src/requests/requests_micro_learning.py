@@ -5,7 +5,7 @@ from typing import List
 from owlready2 import default_world
 
 from src.builder import ONTOLOGY
-from src.construction import Course, Module
+from src.construction import Course, Knowledge, Module, Thematic
 
 with ONTOLOGY:
 
@@ -17,79 +17,124 @@ with ONTOLOGY:
     # @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
     GRAPH.serialize(destination="output.txt", format="turtle")
 
-    def get_all_thematics() -> List[str]:
+    def get_all_thematics() -> List[Thematic]:
         """What are all thematics?"""
-        return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns2:Thematic . }"))
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Thematic . }")
+            )
+        ]
 
-    def get_all_courses() -> List[str]:
+    def get_all_courses() -> List[Course]:
         """What are all available courses?"""
-        return list(GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns2:Course . }"))
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready("SELECT ?b WHERE { ?b a ns1:Course . }")
+            )
+        ]
 
-    def get_course_thematics(course: Course) -> List[str]:
-        """To which thmatic(s) is course X assoicated?"""
-        return list(
-            GRAPH.query_owlready(
-                """SELECT ?b WHERE {
-                    ?b a ns2:Thematic .
-                    <%s> ns2:is_in_thematic ?b .
+    def get_course_thematics(course: Course) -> List[Course]:
+        """To which thematic(s) is course X associated?"""
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT ?b WHERE {
+                    ?b a ns1:Thematic .
+                    <%s> ns1:is_in_thematic ?b .
                 }
                 """
-                % course.iri
+                    % course.iri
+                )
             )
-        )
+        ]
 
-    def get_course_modules(course: Course):
+    def get_course_modules(course: Course) -> List[Module]:
         """What are the modules of course X?"""
-        return list(
-            GRAPH.query_owlready(
-                """SELECT ?b WHERE {
-                    ?b a ns2:Module .
-                    <%s> ns2:has_as_module ?b .
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT ?b WHERE {
+                    ?b a ns1:Module .
+                    <%s> ns1:has_as_module ?b .
                 }
                 """
-                % course.iri
+                    % course.iri
+                )
             )
-        )
+        ]
 
-    def get_module_knowledge(module: Module):
+    def get_module_knowledge(module: Module) -> List[Knowledge]:
         """What knwoledge is acquired thanks to module X?"""
-        return list(
-            GRAPH.query_owlready(
-                """SELECT ?b WHERE {
-                    ?b a ns2:Knowledge .
-                    <%s> ns2:contains_knowledge ?b .
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT ?b WHERE {
+                    ?b a ns1:Knowledge .
+                    <%s> ns1:contains_knowledge ?b .
                 }
                 """
-                % module.iri
+                    % module.iri
+                )
             )
-        )
+        ]
 
-    def get_course_knowledge(course: Course):
+    def get_course_knowledge(course: Course) -> List[Knowledge]:
         """What knowledge is acquired thanks to course X?"""
-        return list(
-            GRAPH.query_owlready(
-                """SELECT ?b WHERE {
-                    ?b a ns2:Knowledge .
-                    ?m ns2:contains_knowledge ?b .
-                    <%s> ns2:has_as_module ?b .
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT ?b WHERE {
+                    ?b a ns1:Knowledge .
+                    ?m ns1:contains_knowledge ?b .
+                    <%s> ns1:has_as_module ?b .
                 }
                 """
-                % course.iri
+                    % course.iri
+                )
             )
-        )
+        ]
 
-    def get_prerequisites(module: Module):
+    def get_module_prerequisites(module: Module) -> List[Module]:
         """What are the modules required for module X?"""
-        return list(
-            GRAPH.query_owlready(
-                """SELECT ?b WHERE {
-                    ?b a ns2:Module .
-                    <%s> ns2:requires_module ?b .
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT DISTINCT ?b WHERE {
+                    ?b a ns1:Module .
+                    <%s> ns1:requires_module ?b .
                 }
                 """
-                % module.iri
+                    % module.iri
+                )
             )
-        )
+        ]
+
+    def get_course_prerequisites(course: Course) -> List[Module]:
+        """What are the modules required for course X?"""
+        return [
+            ele[0]
+            for ele in list(
+                GRAPH.query_owlready(
+                    """SELECT DISTINCT ?b WHERE {
+                    ?b a ns1:Module .
+                    <%s> ns1:has_as_module ?d .
+                    ?d ns1:requires_module ?b .
+                    MINUS {
+                        <%s> ns1:has_as_module ?b .
+                    }
+                }
+                """
+                    % (course.iri, course.iri)
+                )
+            )
+        ]
 
     # def get_course_duration(course_name: str):
     #     """Get the duration of a course"""

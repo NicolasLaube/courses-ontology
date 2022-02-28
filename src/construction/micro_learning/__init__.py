@@ -1,6 +1,5 @@
 """Init for micro learning classes"""
 
-from src.construction.micro_learning.classes import *
-from src.construction.micro_learning.data_properties import *
-from src.construction.micro_learning.object_properties import *
-from src.construction.micro_learning.restrictions import *
+from src.construction.micro_learning.micro_learning_classes import *
+from src.construction.micro_learning.micro_learning_data_properties import *
+from src.construction.micro_learning.micro_learning_object_properties import *

@@ -2,7 +2,7 @@
 from owlready2 import locstr
 
 from src.builder import ONTOLOGY
-from src.construction.micro_learning.classes import Thematic
+from src.construction.micro_learning.micro_learning_classes import Thematic
 
 with ONTOLOGY:
     biology = Thematic("Biology")

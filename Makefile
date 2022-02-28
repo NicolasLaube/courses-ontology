@@ -13,3 +13,10 @@ lint:
 test:
 	pytest
 tests: test
+
+build:
+	python -m src.construction
+requests:
+	python -m src.requests
+checker:
+	python -m src.checker
