@@ -1,5 +1,6 @@
 """Test the reasoner"""
 
+from typing import Dict, List
 import pytest
 
 from src.reasoner import (
@@ -141,7 +142,7 @@ def test_module_levels_in_course() -> None:
 def test_course_min_dependencies() -> None:
     """Tests the min dependencies of all the module in a course"""
     assert get_min_dependencies_in_course("TheoryOfEvolution") == {}
-    assert get_min_dependencies_in_course("Microbiota") == {
+    true_value: Dict[str, List[str]] = {
         "MicrobiotaAndDiabet": ["MicrobiotaAndObesity"],
         "MicrobiotaAndObesity": ["MicrobiotaMetabolicFunction"],
         "MicrobiotaStructure": ["MicrobiotaPresentation"],
@@ -182,3 +183,7 @@ def test_course_min_dependencies() -> None:
         "MicrobiotaSeasonalty": ["MicrobiotaStructure"],
         "MicrobiotaAndDigestion": ["MicrobiotaAndDiabet"],
     }
+    result_query = get_min_dependencies_in_course("Microbiota")
+    assert len(true_value) == len(result_query)
+    for key, list_modules in true_value.items():
+        assert set(list_modules) == set(result_query[key])

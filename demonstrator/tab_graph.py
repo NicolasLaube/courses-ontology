@@ -17,7 +17,7 @@ def get_str_courses():
     global str_courses
     if str_courses is None:
         courses = get_all_courses()
-        str_courses = [course[0].name for course in courses]
+        str_courses = [course.name for course in courses]
     return str_courses
 
 

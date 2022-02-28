@@ -2,7 +2,7 @@
 from owlready2 import locstr
 
 from src.builder import ONTOLOGY
-from src.construction.micro_learning.classes import Course
+from src.construction.micro_learning.micro_learning_classes import Course
 from src.instances.micro_learning.thematics import music
 
 with ONTOLOGY:

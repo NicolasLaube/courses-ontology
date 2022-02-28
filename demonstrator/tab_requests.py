@@ -6,7 +6,7 @@ import pandas as pd
 import streamlit as st
 
 from demonstrator.utils.parser import parse
-from src.requests.requests_dict import SPARQL_REQUESTS
+from src.requests import SPARQL_REQUESTS
 
 
 def tab_requests_view():
@@ -62,9 +62,6 @@ def show_results(funct: Callable[[Any], Any], *args):
     results = funct(*params_values)
 
     st.session_state["df"] = pd.DataFrame(
-        [
-            [str(ele[0].name), str(ele[0].label.fr), str(ele[0].comment.fr)]
-            for ele in results
-        ],
+        [[str(ele.name), str(ele.label.fr), str(ele.comment.fr)] for ele in results],
         columns=["Id", "Label", "Comments"],
     )

@@ -25,7 +25,6 @@ from src.instances.micro_learning import (
     growth,
     human_microbiota,
     inflation,
-    macroeconomy_modules,
     madonna,
     michael_jackson,
     microbiota_composition,
@@ -65,15 +64,15 @@ with ONTOLOGY:
     romain = Person("Romain")
     nicolas = Person("Nicolas")
 
-    antoine.created.extend([pop_music, rock_music, classical_music])
-    antoine.created.extend(pop_music_modules)
+    antoine.created_course.extend([pop_music, rock_music, classical_music])
+    # antoine.created_module.extend(pop_music_modules)
 
-    nicolas.created.extend(economy_courses)
-    nicolas.created.extend(macroeconomy_modules)
+    nicolas.created_course.extend(economy_courses)
+    # nicolas.created_module.extend(macroeconomy_modules)
 
     lola = Person("Lola")
 
-    lola.finished.extend(
+    lola.finished_module.extend(
         [
             gdp,
             national_accounts,
@@ -88,7 +87,7 @@ with ONTOLOGY:
 
     paola = Person("Paola")
 
-    paola.finished.extend(
+    paola.finished_module.extend(
         [
             microbiota_presentation,
             microbiota_structure,
@@ -102,14 +101,15 @@ with ONTOLOGY:
         ]
     )
 
-    paola.started.append(microbiota_through_life)
+    paola.started_module.append(microbiota_through_life)
+    paola.finished_course.append(pop_music)
 
     mathilde = Person("Mathilde")
 
-    mathilde.finished.extend(microbiota_modules)
+    mathilde.finished_module.extend(microbiota_modules)
 
     lucy = Person("Lucy")
-    lucy.finished.extend(
+    lucy.finished_module.extend(
         [
             pop_music_presentation,
             pop_music_famous_artists,
@@ -123,12 +123,12 @@ with ONTOLOGY:
     lucy.failed.append(pop_music_sixties)
 
     lea = Person("Lea")
-    lea.finished.extend([pop_music_presentation, pop_music_famous_artists])
-    lea.started.append(pop_music_festivals)
+    lea.finished_module.extend([pop_music_presentation, pop_music_famous_artists])
+    lea.started_module.append(pop_music_festivals)
 
     beatrice = Person("Beatrice")
-    beatrice.finished.extend(pop_music_modules)
-    beatrice.finished.extend([rock_music_famous_artists, rock_music_festivals])
+    beatrice.finished_module.extend(pop_music_modules)
+    beatrice.finished_module.extend([rock_music_famous_artists, rock_music_festivals])
     # next module should be rock_music_origin as difficulty_to_study_musical_style
     # already defined
 
@@ -136,7 +136,7 @@ with ONTOLOGY:
     # theo is exterior
 
     leo = Person("Leo")
-    leo.finished.extend(
+    leo.finished_module.extend(
         [
             pop_music_presentation,
             pop_music_famous_artists,

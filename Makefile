@@ -20,3 +20,12 @@ build:
 
 demo:
 	streamlit run demonstrator/__main__.py
+
+requests:
+	python -m src.requests
+	
+checker:
+	python -m src.checker
+	
+reasoner:
+	python -m src.reasoner

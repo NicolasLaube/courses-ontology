@@ -95,7 +95,7 @@ def get_min_dependencies_in_course(course):
 def save_levels_dependencies():
     """To save levels and min dependencies in a json file"""
     courses = get_all_courses()
-    courses = [course[0].name for course in courses]
+    courses = [course.name for course in courses]
     all_levels = {}
     all_dependencies = {}
     for course in courses:

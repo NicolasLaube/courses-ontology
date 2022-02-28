@@ -67,3 +67,6 @@ with ONTOLOGY:
         ---
         An Anecdote gives an anecdote about a knowledge
         """
+
+    owl.AllDisjoint([Thematic, Module, Course, Fragment, Knowledge])
+    owl.AllDisjoint([Complement, Example, Anecdote])
