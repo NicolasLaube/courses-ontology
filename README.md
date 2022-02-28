@@ -21,7 +21,7 @@ Pour installer tous les packages requis pour ce projet, veuillez lance la comman
 ### Construire la base de connaissances
 
 Vous pouvez utiliser la commande `make build`.\
-Si elle ne marche pas, vous pouvez aussi utiliser la commande `streamlit run demonstrator/__main__.py`.
+Si elle ne marche pas, vous pouvez aussi utiliser la commande `python -m src.build`.
 
 ### Lancer la demo (page web)
 
