@@ -1,7 +1,7 @@
 """Biology modules"""
 from src.builder import ONTOLOGY
 from src.construction.micro_learning.micro_learning_classes import Knowledge
-from src.instances import (
+from src.instances.micro_learning.music.modules import (
     baroque_pop,
     beach_boys,
     beatles,
@@ -184,7 +184,7 @@ with ONTOLOGY:
         "TaylorsSwiftContemporaryArtistOfPopCountry"
     )
 
-    taylor_swift.has_as_knowledged.extend([contemporary_artist_of_pop_country_Taylor_S])
+    taylor_swift.has_as_knowledge.extend([contemporary_artist_of_pop_country_Taylor_S])
     # 80s
     synthetizer_appeared_in_80s = Knowledge("SynthetizerAppearedInThe80s")
     synthetizer_had_important_impact_on_all_music_styles = Knowledge(
@@ -262,7 +262,7 @@ with ONTOLOGY:
     )
     babe_one_more_time_is_from_bs = Knowledge("BabeOneMoreTimeIsFromBS")
 
-    pop_music_nineties.has_as_module.extend(
+    pop_music_nineties.has_as_knowledge.extend(
         [
             boys_girls_band_are_trendy_in90s,
             boys_girls_bands_group_handsome_boys_and_girls,

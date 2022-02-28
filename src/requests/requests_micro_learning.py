@@ -75,7 +75,7 @@ with ONTOLOGY:
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
                     ?b a ns1:Knowledge .
-                    <%s> ns1:contains_knowledge ?b .
+                    <%s> ns1:has_as_knowledge ?b .
                 }
                 """
                     % module.iri
@@ -91,8 +91,8 @@ with ONTOLOGY:
                 GRAPH.query_owlready(
                     """SELECT ?b WHERE {
                     ?b a ns1:Knowledge .
-                    ?m ns1:contains_knowledge ?b .
-                    <%s> ns1:has_as_module ?b .
+                    ?m ns1:has_as_knowledge ?b .
+                    <%s> ns1:has_as_module ?m .
                 }
                 """
                     % course.iri
