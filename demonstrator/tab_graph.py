@@ -1,16 +1,19 @@
 """Tab graph"""
 
+import os
 import streamlit as st
 from streamlit_agraph import Config, Edge, Node, agraph
-from src.requests import get_all_courses
-from src.reasoner import get_min_dependencies_in_course
+from demonstrator.utils.json_loader import load_json
+from src.requests.requests_micro_learning import get_all_courses
+
+MIN_DEPENDENCIES_PATH = os.path.join("storage", "min_dependencies.json")
 
 str_courses = None
-
 all_dependencies = None
 
 
 def get_str_courses():
+    """Return all courses as strings"""
     global str_courses
     if str_courses is None:
         courses = get_all_courses()
@@ -19,13 +22,10 @@ def get_str_courses():
 
 
 def get_dependencies(course_str):
+    """Return all min dependencies of a course"""
     global all_dependencies
     if all_dependencies is None:
-        courses = get_all_courses()
-        courses = [course[0] for course in courses]
-        all_dependencies = {}
-        for course in courses:
-            all_dependencies[course.name] = get_min_dependencies_in_course(course)
+        all_dependencies = load_json(MIN_DEPENDENCIES_PATH)
     return all_dependencies[course_str]
 
 
@@ -55,8 +55,8 @@ def get_graph_view():
     for module in dependencies.keys():
         nodes.append(
             Node(
-                id=module.name,
-                label=module.name,
+                id=module,
+                label=module,
                 color="grey",
             )
         )
@@ -64,23 +64,17 @@ def get_graph_view():
         for source_module in dependencies[target_module]:
             edges.append(
                 Edge(
-                    source=source_module.name,
-                    target=target_module.name,
+                    source=source_module,
+                    target=target_module,
                     color="#F7A7A6",
                 )
             )
 
-    layout = st.sidebar.selectbox("layout", ["dot", "neato", "circo", "fdp", "sfdp"])
-
-    rankdir = st.sidebar.selectbox("rankdir", ["TB", "BT", "LR", "RL"])
-    ranksep = st.sidebar.slider("ranksep", min_value=0, max_value=10)
-    nodesep = st.sidebar.slider("nodesep", min_value=0, max_value=10)
-
     config = Config(
         width=1300,
         height=750,
-        graphviz_layout=layout,
-        graphviz_config={"rankdir": rankdir, "ranksep": ranksep, "nodesep": nodesep},
+        graphviz_layout="dot",
+        graphviz_config={"rankdir": "TB", "ranksep": 0, "nodesep": 0},
         directed=True,
         nodeHighlightBehavior=True,
         collapsible=False,
