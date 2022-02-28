@@ -272,7 +272,9 @@ with ONTOLOGY:
     jazz_fusion = Module("JazzFusion")
     jazz_fusion.requires_module.extend([mod_subculture, blues_rock])
     rock_music_seventies = Module("RockMusicSeventies")
-    rock_music_seventies.requires_module.extend([rock_music_sixties])
+    rock_music_seventies.requires_module.extend(
+        [jazz_fusion, garage_rock, progressive_rock, folk_music]
+    )
     soft_rock = Module("SoftRock")
     soft_rock.requires_module.extend([rock_music_seventies])
     elton_john = Module("EltonJohn")
