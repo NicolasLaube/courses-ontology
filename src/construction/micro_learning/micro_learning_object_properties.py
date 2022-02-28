@@ -1,6 +1,8 @@
 """
 Micro learning courses properties
 """
+from owlready2 import TransitiveProperty
+
 from src.builder import ONTOLOGY
 from src.construction.micro_learning.micro_learning_classes import (
     Course,
@@ -43,10 +45,10 @@ with ONTOLOGY:
 
         inverse_property = requires_module
 
-    class follows_knowledge(Knowledge >> Knowledge):  # type: ignore
+    class follows_knowledge(Knowledge >> Knowledge, TransitiveProperty):  # type: ignore
         """Knowledge X follows knowledge Y"""
 
-    class is_followed_by_knowledge(Knowledge >> Knowledge):  # type: ignore
+    class is_followed_by_knowledge(Knowledge >> Knowledge, TransitiveProperty):  # type: ignore
         """Knwoledge X is followed by knwoledge Y"""
 
         inverse_property = follows_knowledge

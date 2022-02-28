@@ -29,7 +29,7 @@ SPARQL_REQUESTS = {
     "Thematic of course": get_course_thematics,
     "Module prerequesites": get_module_prerequisites,
     "Course prerequesites": get_course_prerequisites,
-    "Module unlocked by module": get_unlocked_modules,
+    "Module unlocked by user": get_unlocked_modules,
     "Course finishers": get_course_finishers,
     "Course creators": get_course_creators,
     "Learner knowledge": get_learner_knowledge,

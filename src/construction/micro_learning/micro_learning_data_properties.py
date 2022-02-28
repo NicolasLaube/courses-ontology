@@ -1,11 +1,11 @@
 """Data properties"""
-from owlready2 import DataProperty  # type: ignore
+from owlready2 import DataProperty, FunctionalProperty  # type: ignore
 
 from src.builder import ONTOLOGY, Time
 
 with ONTOLOGY:
 
-    class is_title(DataProperty):
+    class is_title(DataProperty, FunctionalProperty):
         """Title"""
 
         range = [str]
@@ -20,7 +20,7 @@ with ONTOLOGY:
 
         range = [str]
 
-    class lasts(DataProperty):
+    class lasts(DataProperty, FunctionalProperty):
         """Duration"""
 
         range = [Time]

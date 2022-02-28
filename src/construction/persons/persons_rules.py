@@ -68,8 +68,8 @@ def set_rules():
         # Reviewer
         # A person who reviews another person is a Reviewer
         set_one_rule(
-            """Person(?p1), Person(?p2), reviewed(?p1, ?p2)
-                            -> Reviewer(?p1)"""
+            """Person(?p), Module(?m), reviewed(?p, ?m)
+                            -> Reviewer(?p)"""
         )
 
 

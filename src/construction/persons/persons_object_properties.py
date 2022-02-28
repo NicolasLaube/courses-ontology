@@ -1,5 +1,7 @@
 """Persons onject properties"""
 # pylint: disable=E0102
+from owlready2 import AllDisjoint
+
 from src.builder import ONTOLOGY
 from src.construction.micro_learning.micro_learning_classes import Course, Module
 from src.construction.persons.persons_classes import Person
@@ -67,3 +69,5 @@ with ONTOLOGY:
         """Person X is followed by Person Y"""
 
         inverse_property = follows
+
+    AllDisjoint([ONTOLOGY.failed, ONTOLOGY.finished_module])
